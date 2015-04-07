@@ -1,0 +1,29 @@
+# Ignore system config
+config/application.yml
+
+# Ignore database config and the default SQLite database.
+database.yml
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore vendor/bundle
+vendor/bundle/
+vendor/
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore other files
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret
+.env
+.ruby-gemset
+.ruby-version
