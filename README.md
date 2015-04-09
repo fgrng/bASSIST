@@ -278,6 +278,8 @@ die noch angelegt werden muss. Eine Beispieldatei findet sich unter
 
 HOST_URL: example.com
 
+VALID_EMAIL_REGEX: /\A[\w+\-._]+@[a-z\d\-.]+\.[a-z]+\z/i
+
 MAILER_DEFAULT_FROM: no-reply@example.com
 
 MAILER_SMTP_HOST: smtphost.com
@@ -293,3 +295,17 @@ development:
 production:
   SECRET_TOKEN: XXXXX
 ```
+
+- **HOST_URL** ist die URI des Servers, auf dem die Webapplikation gehostet
+  ist.
+- **VALID_EMAIL_REGEX** ist ein
+  [Regulärer Ausdruck](https://en.wikipedia.org/wiki/Regular_expression),
+  der für die Validierung der Email-Adresse von Benutzer*innen verwendet
+  wird. Der obige Beispiel ausdruck entspricht der typischen Struktur einer
+  Email-Adresse. Der Ausdruck
+  `/\A[\w+\-._]+@[a-z\d\-.]+\.uni\-heidelberg\.de/i` etwa, lässt nur
+  Adressen zu, die auf `uni-heidelberg.de` enden.
+- **MAILER_\*** konfiguriert den zu verwendenden SMTP Server.
+- **SECRET_TOKEN** wird von Rails verwendet, um Cross-Site Request Forgery
+  (CSRF) Angriffe zu verhindern. Dieser Wert wird für
+  `Application.config.secret_key_base` verwendet.
