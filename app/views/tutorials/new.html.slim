@@ -1,0 +1,29 @@
+- if @lecture
+  - record = [@lecture,@tutorial]
+- else
+  - record = @tutorial
+
+- content_for :page_subtitle do
+  = trl "Bitte erstellen Sie ein neues Tutorium"
+
+- content_for :before_content do
+  - form_tag(record, class: "form-horizontal")
+
+- content_for :after_content do
+
+- content_for :block_title do
+  = trl "Tutorium"
+
+- content_for :block do
+  - fields_for(@tutorial) do |f|
+    .form-group
+      = f.label :max_students, trl("Max. Student*innen"), class: "control-label col-md-3"
+      .col-md-8
+        = f.number_field :max_students, class: "form-control", :min => 1, :step => 1
+
+- content_for :tasks do
+  = fields_for(@tutorial) do |f|
+    = f.submit "Tutorium anlegen",
+      class: "btn btn-default btn-large btn-block"
+
+= render template: "layouts/editor_subject"

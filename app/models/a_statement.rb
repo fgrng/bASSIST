@@ -1,0 +1,2 @@
+class AStatement < Statement
+end

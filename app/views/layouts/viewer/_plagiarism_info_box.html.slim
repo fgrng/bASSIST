@@ -1,0 +1,42 @@
+dl.dl-horizontal
+  dt
+    = trl "Textstellen"
+  dd
+    = collection.passage_count.to_s
+  dt
+    = trl "Übereinstimmung"
+  dd
+    .progress
+      .progress-bar.progress-bar-danger[role="progressbar"
+        aria-valuenow="#{collection.percentage.to_i}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        style="width: #{collection.percentage.to_i.to_s}%"
+        ]
+        = collection.percentage.to_i.to_s + "%"
+  - if collection.submission.external
+    dt
+      = trl "Name"
+    dd
+      = collection.submission.student_full_name
+    dt
+      = trl "Kommentar"
+    dd
+      = collection.submission.comment
+  - else
+    dt
+      = trl "Name"
+    dd
+      = collection.submission.student_full_name
+    dt
+      = trl "Email"
+    dd
+      = collection.submission.student_email
+  dt
+    = trl "Aufgabe"
+  dd
+    = collection.submission.exercise.name
+  dt
+    = trl "Kurs"
+  dd
+    = collection.submission.exercise.subject.lecture.name_string

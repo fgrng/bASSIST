@@ -1,0 +1,17 @@
+= link_to trl("Neuer Kurs"), new_lecture_path, class: "btn btn-default btn-large btn-block"
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Kurs editieren"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @lectures.each do |lecture|
+      li
+        = link_to (lecture.name_string).html_safe, edit_lecture_path(lecture)
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Kurs löschen"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @lectures.each do |lecture|
+      li
+        = link_to (lecture.name_string).html_safe, lecture_path(lecture), method: :delete, data: {confirm: 'Are you sure?'}

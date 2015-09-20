@@ -1,0 +1,2 @@
+class BStatement < Statement
+end

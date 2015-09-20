@@ -1,0 +1,18 @@
+tr
+  td
+    = student.list_name
+  td
+    = student.group_name
+  td
+    .btn-group
+      button.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+        - if student.tutorial.nil?
+          = trl "Tutorium zuweisen"
+        - else
+          = student.tutorial.name
+        span.caret<>
+      ul.dropdown-menu
+        - @tutorials.each do |tutorial|
+          li
+            = link_to tutorial.name,
+              assign_tutorial_student_path(tutorial,student)

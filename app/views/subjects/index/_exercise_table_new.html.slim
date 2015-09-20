@@ -1,0 +1,21 @@
+tr
+  td.text-right[colspan="4"]
+    .btn-group
+      button.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+        = trl "Neue Aufgabe"
+        span.caret<>
+      ul.dropdown-menu.text-left
+        li.dropdown-header
+          |  Bewertete Aufgaben
+        - Exercise::TYPE_STATEMENTS.each do |type|
+          li
+            = link_to \
+              trl("Neue #{subject.lecture.exercise_name(type)} Aufgabe"),
+              send("new_subject_#{type.underscore}_path", subject)
+        li.dropdown-header
+          |  Unbewertete Aufgaben
+        - Exercise::TYPE_REFLECTIONS.each do |type|
+          li
+            = link_to \
+              trl("Neue #{subject.lecture.exercise_name(type)} Aufgabe"),
+              send("new_subject_#{type.underscore}_path", subject)

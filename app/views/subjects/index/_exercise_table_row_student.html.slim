@@ -1,0 +1,9 @@
+tr[class=student.dt_submission_edit_tr_class(exercise)]
+  td
+    = exercise.type_name
+  td
+    = student.group_to_exercise(exercise)
+  td
+    = link_to('Anzeigen', exercise, class: "btn btn-xs btn-info")
+  td
+    = student.dt_submission_buttons(exercise)

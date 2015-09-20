@@ -1,0 +1,9 @@
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Data Export"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    li
+      = link_to "Abgaben & Feedback (XML)", export_subjects_lecture_path(@lecture, format: :xml)
+    li
+      = link_to "Student*innen (XML)", export_students_lecture_path(@lecture, format: :xml)

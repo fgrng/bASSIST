@@ -1,0 +1,22 @@
+.btn-group.btn-block
+  = link_to \
+    trl("Kurs bearbeiten"),
+    edit_lecture_path(@lecture),
+    class: "btn btn-default btn-large btn-block"
+
+.btn-group.btn-block
+  = link_to trl("Gruppe anlegen"),
+    add_group_lecture_path(@lecture),
+    class: "btn btn-default btn-large btn-block",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Die Anzahl der Gruppen um Eins erhöhen."
+
+.btn-group.btn-block
+  = link_to trl("Gruppe entfernen"),
+    remove_group_lecture_path(@lecture),
+    data: {confirm: 'Are you sure?'},
+    class: "btn btn-default btn-large btn-block",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Die Anzahl der Gruppen um Eins vermindern. Diese Funktion sollte nach Beginn des Kursbetriebs nicht benutzt werden."

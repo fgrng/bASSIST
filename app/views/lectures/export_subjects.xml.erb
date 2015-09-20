@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+					xmlns:o="urn:schemas-microsoft-com:office:office"
+					xmlns:x="urn:schemas-microsoft-com:office:excel"
+					xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+					xmlns:html="http://www.w3.org/TR/REC-html40">
+
+  <Worksheet ss:Name="Übersicht">
+		<Table>
+			<% @lecture.subjects.each do |subject| %>
+      <Row>
+				<Cell><Data ss:Type="String">Themengebiet</Data></Cell>
+				<Cell><Data ss:Type="String"><%= subject.name %></Data></Cell>
+      </Row>
+      <Row>
+				<Cell><Data ss:Type="String">Typ</Data></Cell>
+				<Cell><Data ss:Type="String">Text</Data></Cell>
+      </Row>
+      <% subject.exercises.each do |exercise| %>
+      <Row>
+				<Cell><Data ss:Type="String"><%= exercise.decorate.type_name %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= exercise.text_xml_valid %></Data></Cell>
+			</Row>
+      <% end %>
+			<% end %>
+			<Row>
+			</Row>
+		</Table>
+  </Worksheet>  
+
+  <% @lecture.subjects.each do |subject| %>
+    <%= render "lectures/export/sheet", :subject => subject.decorate %>
+  <% end %>
+
+</Workbook>

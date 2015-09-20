@@ -1,0 +1,39 @@
+- if @exercise
+  - record = [@exercise.becomes(Exercise),@submission]
+- else
+  - record = @submission
+
+- content_for :page_title do
+  = trl "Abgabe"
+
+- content_for :page_subtitle do
+  = trl "Bitte erstellen Sie Ihre Abgabe "
+
+- content_for :before_content do
+  - form_tag(record)
+
+- content_for :after_content do
+
+- content_for :block_title do
+  - if @submission.student.nil?
+    = trl "Abgabe"
+  - else
+    = trl "Abgabe von #{@submission.student_full_name}"
+
+- content_for :block do
+  - fields_for(@submission) do |f|
+    = f.text_area :text, class: "form-control", :placeholder => "Put your text here."
+
+- content_for :tasks do
+  = render '/submissions/submit', locals: {submission: @submission}
+
+- content_for :info do
+  = @submission.exercise.htmlize_text
+
+- content_for :help do
+  |  Die Texte werden ohne Formatierungen (Schriftart, Schriftgröße, Auzeichnungen wie Fettdruck oder Kursivdruck) gespeichert. 
+  br
+  br
+  |  Um einen Absatz zu erzeugen, verwenden Sie bitte zwei aufeinanderfolgende Zeilenumbrüche. 
+
+= render template: "layouts/editor_submission"

@@ -1,0 +1,11 @@
+li#nav_lecture
+  = link_to "Informationen", @lecture
+li#nav_subjects
+  = link_to "Themengebiete", lecture_subjects_path(@lecture)
+li#nav_students
+  = link_to "Student*innen", lecture_students_path(@lecture)
+li#nav_tutors
+  = link_to "Tutor*innen", lecture_tutors_path(@lecture)
+li#nav_tutorials
+  = link_to "Tutorien", lecture_tutorials_path(@lecture)
+

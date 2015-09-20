@@ -1,0 +1,52 @@
+- content_for :page_subtitle do
+  = trl "Kurs"
+- content_for :block_title do
+  = trl("Informationen über ") + @lecture.name
+- content_for :block do
+  dl.dl-horizontal
+    dt
+      = trl "Name"
+    dd
+      = @lecture.name
+    dt
+      = trl "Semester"
+    dd
+      = @lecture.term_string
+    dt
+      = trl "Dozent*in"
+    dd
+      = @lecture.teacher
+    dt
+      = trl "Beschreibung"
+    dd
+      = @lecture.description
+    - if signed_in? and current_user.is_student?(@lecture)
+      dt
+        = trl "Gruppenzugehörigkeit"
+      dd
+        = current_user.get_student(@lecture).decorate.group_name
+    - else
+      dt
+        = trl "Anzahl an Gruppen"
+      dd
+        = @lecture.max_group
+  - if signed_in? and current_user.is_invalid_student?(@lecture)
+    .panel.panel-default
+      .panel-body
+        |  Sie sind zu diesem Kurs zwar registriert, jedoch noch nicht validiert. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut. 
+
+- if signed_in?
+  - if current_user.is_teacher?(@lecture)
+    - content_for :tasks do
+      = render 'lectures/show/tasks_lecture'
+      hr
+      = render 'lectures/show/tasks_export'
+    = render template: "layouts/lecture/col9col3"
+  - elsif current_user.is_tutor?(@lecture)
+    = render template: "layouts/lecture/table"
+  - elsif current_user.is_student?(@lecture)
+    = render template: "layouts/lecture/table"
+  - else
+    = render template: "layouts/lecture/table"
+- else
+  = render template: "layouts/lecture/table"

@@ -1,0 +1,39 @@
+- content_for :page_subtitle do
+  = trl "Themengebiete"
+- content_for :tasks do
+  = render 'subjects/index/tasks'
+- content_for :col do
+  - @subjects.each do |subject|
+    .panel.panel-default
+      .panel-heading
+        - if current_user.is_teacher_or_tutor?(@lecture)
+          .pull-left
+            small
+              - if subject.visible?
+                = trl("Sichtbar")
+              - else
+                = trl("Versteckt")
+        .pull-right
+          small
+            |  Abgabe: 
+            = Time.zone.at(subject.due_date).strftime("%d. %B %Y – %H:%M Uhr")
+        h4.panel-title.text-center
+          = subject.name
+      table.table.table-hover
+        = render 'subjects/index/exercise_table_head'
+        - subject.exercises.each do |exercise|
+          = render 'subjects/index/exercise_table_row', :exercise => exercise.decorate
+        - if signed_in? && current_user.is_teacher?(@lecture)
+          = render 'subjects/index/exercise_table_new', :subject => subject.decorate
+
+- if signed_in?
+  - if current_user.is_teacher?(@lecture)
+    = render template: "layouts/lecture/col9col3"
+  - elsif current_user.is_tutor?(@lecture)
+    = render template: "layouts/lecture/table"
+  - elsif current_user.is_student?(@lecture)
+    = render template: "layouts/lecture/table"
+  - else
+    = render template: "layouts/lecture/table"
+- else
+  = render template: "layouts/lecture/table"

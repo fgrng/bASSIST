@@ -1,0 +1,9 @@
+- if signed_in?
+  - if current_user.is_teacher?(@lecture)
+    = render 'subjects/index/tasks_teacher'
+  - elsif current_user.is_tutor?(@lecture)
+    = render 'subjects/index/tasks_tutor'
+  - elsif current_user.is_student?(@lecture)
+    = render 'subjects/index/tasks_student'
+- else
+  = link_to "No Tasks", '#', class: "btn btn-default btn-large btn-block"

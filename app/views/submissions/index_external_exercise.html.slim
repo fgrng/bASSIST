@@ -1,0 +1,22 @@
+- content_for :page_subtitle do
+  = trl "Zusatzabgaben"
+
+- content_for :table_title do
+  = trl @exercise.name
+  .pull-left
+    small
+      | Zusatzabgaben 
+
+- content_for :table do
+  table#external_submissions.table.table-hover
+    thead
+      tr
+        th
+          | Kommentar
+        th
+          | Letzte Änderung
+        th
+          | Funktionen
+    tbody
+
+= render template: "layouts/lecture/table"

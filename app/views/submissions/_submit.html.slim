@@ -1,0 +1,21 @@
+= fields_for(submission) do |f|
+  = f.submit"Speichern",
+    class: "btn btn-default btn-large btn-block",
+    name: "save",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Die Abgabe wird gespeichert. Sie kann weiterhin bearbeitet werden, sofert das Abgabedatum nicht erreicht ist."
+
+  = f.submit "Speichern und Beenden",
+    class: "btn btn-default btn-large btn-block",
+    name: "exit",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Die Abgabe wird gespeichert und der Editor verlassen. Sie kann weiterhin bearbeitet werden, sofert das Abgabedatum nicht erreicht ist."
+
+  = f.submit "Speichern und Einreichen",
+    class: "btn btn-default btn-large btn-block",
+    name: "submit",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Die Abgabe wird gespeichert und eingereicht. Eine weitere Bearbeitung ist nicht mehr möglich."

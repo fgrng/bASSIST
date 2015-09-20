@@ -1,0 +1,2 @@
+class Reflection < Exercise
+end

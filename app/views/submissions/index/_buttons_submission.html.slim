@@ -1,0 +1,16 @@
+.btn-group
+  button#dropdown_submission.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+    | Abgabe
+    span.caret<>
+  ul.dropdown-menu[role="menu" aria-labelledby="dropdown_submission"]
+    li
+      = link_to( trl('Anzeigen'),
+        submission_path(submission) )
+    li
+      = link_to( trl('Bearbeiten'),
+        edit_submission_path(submission) )
+    li
+      = link_to( trl('Löschen'),
+        submission_path(submission),
+        method: :delete,
+        data: {confirm: 'Sind Sie sicher?'} )

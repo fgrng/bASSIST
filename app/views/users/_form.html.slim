@@ -1,0 +1,8 @@
+= bootstrap_form_for(@user, layout: :horizontal) do |f|
+  = f.text_field :email, label: "Email"
+  = f.password_field :password, label: "Passwort"
+  = f.password_field :password_confirmation, label: "Passwort wiederholen"
+  = f.text_field :first_name, label: "Vorname"
+  = f.text_field :last_name, label: "Nachname"
+  = f.form_group do
+    = f.primary

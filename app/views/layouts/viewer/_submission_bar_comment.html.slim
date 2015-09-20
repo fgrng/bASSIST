@@ -1,0 +1,7 @@
+.progress
+  - if @submission.passed?
+    .progress-bar.progress-bar-success[role="progressbar" style="width: 100%"]
+      = trl "Bestanden"
+  - else
+    .progress-bar.progress-bar-danger[role="progressbar" style="width: 100%"]
+      = trl "Nicht Bestanden"

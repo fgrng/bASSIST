@@ -1,0 +1,27 @@
+.modal.fade[
+  id="#{lecture.id.to_s}student"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"]
+  .modal-dialog.text-left
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h4.modal-title[id="#{lecture.id.to_s}student"]
+          = trl "Als Student*in registrieren"
+      .modal-body
+        p
+          |  Möchten Sie sich wirklich als 
+          strong
+            | Student*in
+          |  in den Kurs 
+          strong
+            = lecture.name
+          |  in 
+          strong
+            = lecture.term_string
+          |  registrieren? 
+        = bootstrap_form_for :student, url: lecture_students_path(lecture) do |f|
+          = f.primary "Registrieren"

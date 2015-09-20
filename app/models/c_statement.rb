@@ -1,0 +1,2 @@
+class CStatement < Statement
+end

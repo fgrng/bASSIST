@@ -1,0 +1,2 @@
+- @roles.each do |role|
+  = render "roles/index/#{@type.underscore.pluralize}_table_row", :role => role.decorate

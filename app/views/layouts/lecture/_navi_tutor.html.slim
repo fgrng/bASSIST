@@ -1,0 +1,13 @@
+li#nav_lecture
+  = link_to trl("Informationen"), @lecture
+li#nav_subjects
+  = link_to trl("Themengebiete"), lecture_subjects_path(@lecture)
+- unless current_user.get_tutor(@lecture).tutorial.nil?
+  li#nav_mytutorial
+    = link_to trl("Meine Student*innen"),  tutorial_students_path(current_user.get_tutor(@lecture).tutorial)
+- else
+  li.disabled
+    a
+      | Kein Tutorium zugewiesen
+li#nav_students
+  = link_to trl("Alle Student*innen"), lecture_students_path(@lecture)

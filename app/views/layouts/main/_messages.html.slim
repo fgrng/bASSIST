@@ -1,0 +1,10 @@
+noscript
+  .alert.alert-danger
+    |  Diese Seite benötigt JavaScript. In Ihrem Browser ist JavaScript deaktiviert. Bitte erlauben sie die Ausführung von Skripten von dieser Webseite. 
+
+- flash.each do |name, msg|
+  - if msg.is_a?(String)
+    .alert *{class: "alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"}
+      button.close[type="button" data-dismiss="alert" aria-hidden="true"]
+        | ×
+      = content_tag :div, msg, :id => "flash_#{name}"

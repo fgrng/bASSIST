@@ -1,0 +1,33 @@
+- if role.validated
+  .dropdown
+    .btn-group
+      button.btn.btn-default.btn-xs[disabled="disabled"]
+        |  Validiert
+      button#dropdown_valid.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+        span.caret<>
+      ul.dropdown-menu[role="menu" aria-labelledby="dropdown_valid"]
+        li
+          = link_to trl("Validierung rückgängig machen"),
+            toggle_validation_student_path(role),
+            class: "text-small"
+        li
+          = link_to trl("Student entfernen"),
+            student_path(role),
+            method: :delete,
+            data: {confirm: 'Sind Sie sicher?'},
+            class: "text-small"
+- else
+  .dropdown
+    .btn-group
+      = link_to trl("Validieren"),
+        toggle_validation_student_path(role),
+        class: "btn btn-danger btn-xs"
+      button#dropdown_valid.btn.btn-danger.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+        span.caret<>
+      ul.dropdown-menu[role="menu" aria-labelledby="dropdown_valid"]
+        li
+          = link_to trl("Student entfernen"),
+            student_path(role),
+            method: :delete,
+            data: {confirm: 'Sind Sie sicher?'},
+            class: "text-small"

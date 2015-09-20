@@ -1,0 +1,6 @@
+- if content_for?(:page_title)
+  .page-header
+    h1
+      = yield :page_title
+      small
+        =<> yield :page_subtitle

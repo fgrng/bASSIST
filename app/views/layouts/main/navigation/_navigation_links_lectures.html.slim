@@ -1,0 +1,28 @@
+li
+  .btn-group.navbar-btn
+    - unless active_lecture.nil?
+      = link_to shorten_name(active_lecture.name), active_lecture, class:"btn btn-default"
+    - else
+      = link_to "Kurse", lectures_path, class:"btn btn-default"
+    button.btn.btn-default.dropdown-toggle[data-toggle="dropdown"]
+      span.caret<>
+    ul.dropdown-menu
+      - Role::TYPES.each do |role|
+        li.dropdown-header
+          |  Kurse als 
+          - if role == Role::TYPE_STUDENT
+            |  Student*in 
+          - elsif role == Role::TYPE_TUTOR
+            |  Tutor*in 
+          - elsif role == Role::TYPE_TEACHER
+            |  Dozent*in 
+        - current_user.send(role.downcase.pluralize).each do |c|
+          - if active_lecture && active_lecture.id == c.lecture_id
+            li.active
+              = link_to c.lecture.decorate.name_string, c.lecture
+          - else
+            li
+              = link_to c.lecture.decorate.name_string, c.lecture
+        li.divider
+      li
+        = link_to "Alle Kurse", lectures_path

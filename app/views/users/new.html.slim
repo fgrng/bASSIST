@@ -1,0 +1,16 @@
+- content_for :page_title do
+  |  Wilkommen! 
+- content_for :page_subtitle do
+  |  Bitte registrieren Sie einen neuen Account 
+- content_for :sub do
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title.text-center
+            = trl("Neuer Account")
+        .panel-body
+          = render 'form'
+        .panel-footer
+          | Nachdem Sie die Regstrierung abgeschlossen haben, wird Ihnen eine Email zugeschickt, mit der Sie Ihre Email-Adresse bestätigen müssen. Erst nach der Bestätigung, können Sie sich mit Ihrem Benutzerkonto anmelden.
+= render template: "layouts/main"

@@ -1,0 +1,8 @@
+= bootstrap_form_for(:session, layout: :horizontal, url: sessions_path, label_col: "col-md-3", control_col: "col-md-8") do |f|
+  = f.email_field :email, placeholder: "Email", value: (@user && @user.email)
+  = f.password_field :password, placeholder: "Password"
+  = f.form_group do
+    .btn-group
+      = f.primary "Anmelden"
+      = link_to "Registrieren", signup_path, class: "btn btn-info"
+    = link_to "Passwort vergessen?", new_password_reset_path, class: "pull-right"

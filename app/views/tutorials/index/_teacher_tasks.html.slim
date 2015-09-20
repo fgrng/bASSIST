@@ -1,0 +1,61 @@
+= link_to trl("Tutorium anlegen"),
+  new_lecture_tutorial_path(@lecture),
+  class: "btn btn-default btn-large btn-block"
+
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Tutorium bearbeiten"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @tutorials.each do |tutorial|
+      li
+        = link_to tutorial.name,
+          edit_tutorial_path(tutorial)
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Tutorium löschen"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @tutorials.each do |tutorial|
+      li
+        = link_to tutorial.name,
+          tutorial_path(tutorial),
+          method: :delete,
+          data: {confirm: 'Are you sure?'}
+
+hr
+
+= link_to trl("Tutorien zuweisen"),
+  fill_tutorials_lecture_path(@lecture),
+  class: "btn btn-default btn-large btn-block",
+  "data-toggle" => "tooltip",
+  "data-placement" => "left",
+  "title" => "Student*innen, die noch keinem Tutorium zugeordnet sind, werden zufällig zugeordnet, sofern noch Plätze in Tutorien frei sind. Bestehende Zuordnungen werden nicht verändert."
+
+= link_to trl("Tutorien überfüllen"),
+  force_fill_tutorials_lecture_path(@lecture),
+  class: "btn btn-default btn-large btn-block",
+  "data-toggle" => "tooltip",
+  "data-placement" => "left",
+  "title" => "Student*innen, die noch keinem Tutorium zugeordnet sind, werden zufällig zugeordnet, auch wenn keine Plätze in Tutorien mehr frei sind. Diese Funktion ignoriert die Obergrenze für Tutorien. Bestehende Zuordnungen werden nicht verändert."
+
+= link_to trl("Tutorien neu zuweisen"),
+  refill_tutorials_lecture_path(@lecture),
+  class: "btn btn-default btn-large btn-block",
+  "data-toggle" => "tooltip",
+  "data-placement" => "left",
+  "title" => "Student*innen werden zufällig zu Tutorien zugeordnet, bis keine Plätze mehr in Tutorien frei sind. Bestehende Zuordnungen werden aufgehoben."
+
+= link_to trl("Tutorien neu überfüllen!"),
+  force_refill_tutorials_lecture_path(@lecture),
+  class: "btn btn-default btn-large btn-block",
+  "data-toggle" => "tooltip",
+  "data-placement" => "left",
+  "title" => "Student*innen werden zufällig zu Tutorien zugeordnet, auch wenn keine Plätze mehr in Tutorien frei sind. Diese Funktion ignoriert die Obergrenze für Tutorien. Bestehende Zuordnungen werden aufgehoben."
+
+= link_to trl("Tutorien leeren"),
+  clear_tutorials_lecture_path(@lecture),
+  class: "btn btn-default btn-large btn-block",
+  "data-toggle" => "tooltip",
+  "data-placement" => "left",
+  "title" => "Die Zuordnungen von Student*innen und Tutorien wird aufgehoben."

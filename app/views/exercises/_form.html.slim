@@ -1,0 +1,22 @@
+- fields_for(exercise) do |f|
+  .form-group
+    = f.label :text, trl("Aufgabentext"), class: "control-label col-md-3"
+    .col-md-8
+      = f.text_area :text, class: "form-control", placeholder: "Hier Aufgabentext einfügen."
+  .form-group
+    - groups = [[ExerciseDecorator::GRP_EQUAL,-1],[ExerciseDecorator::GRP_DIFF,0]]
+    - (1..exercise.subject.lecture.max_group).each do |g|
+      - groups << [('A'..'ZZ').to_a[g-1],g]
+    = f.label :group_number, trl("Gruppe"), class: "control-label col-md-3"
+    .col-md-8
+      = f.select :group_number, options_for_select(groups),{}, { class: "form-control" }
+  - if Exercise::TYPE_STATEMENTS.include?(exercise.type)
+    .form-group
+      = f.label trl("Punkte (min/max)"), class: "control-label col-md-3"
+      .col-md-8.form-inline
+        = f.number_field :min_points, class: "form-control", :min => 0.0, :step => 0.1
+        = f.number_field :max_points, class: "form-control", :min => 0.0, :step => 0.1
+  .form-group
+    = f.label :ideal_solution, trl("Ideallösung"), class: "control-label col-md-3"
+    .col-md-8
+      = f.text_area :ideal_solution, class: "form-control", placeholder: "Hier Ideallösung einfügen."

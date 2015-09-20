@@ -1,0 +1,8 @@
+- content_for :sub do
+  = render 'layouts/lecture/navigation'
+  = content_for?(:lecture_sub) ? yield(:lecture_sub) : yield
+
+- content_for :page_title do
+  = @lecture.name
+
+= render template: "layouts/main"

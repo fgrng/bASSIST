@@ -1,0 +1,21 @@
+- fields_for(feedback) do |f|
+  - if Exercise::TYPE_STATEMENTS.include?(submission.exercise.type)
+    .row
+      = f.label :grade, "Bewertung", class: "control-label col-sm-5"
+      .col-sm-7
+        = f.number_field :grade,
+          label: "Bewertung",
+          class: "form-control",
+          :step => 0.01,
+          :min => exercise.min_points,
+          :max => exercise.max_points,
+          :value => exercise.max_points
+  .row
+    = f.label :passed, "Bestanden?", class: "control-label col-sm-5"
+    .checkbox.col-sm-7
+      = f.check_box :passed, 
+        "data-on-text" => "Ja",
+        "data-off-text" => "Nein",
+        "data-on-color" => "success",
+        "data-off-color" => "danger"
+  = javascript_tag "$('#feedback_passed').bootstrapSwitch();"

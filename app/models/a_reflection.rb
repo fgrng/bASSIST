@@ -1,0 +1,2 @@
+class AReflection < Reflection
+end

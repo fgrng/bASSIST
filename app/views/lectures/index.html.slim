@@ -1,0 +1,9 @@
+- content_for :page_title do
+  |  Kurse 
+- content_for :sub do
+  .row
+    .col-md-12
+      - @lectures.each do |lecture|
+        = render "lectures/index/lectures_block", :lecture => lecture
+
+= render template: "layouts/main"

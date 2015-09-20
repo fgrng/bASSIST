@@ -1,0 +1,17 @@
+<Row>
+  <% if submission.student.nil? %>
+    <Cell><Data ss:Type="String"></Data></Cell>
+  <% else %>
+    <Cell><Data ss:Type="String"><%= submission.student.user.id %></Data></Cell>
+  <% end %>
+  <Cell><Data ss:Type="String"><%= submission.student_email_raw %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.student_last_name %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.student_first_name %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.exercise.type_name %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.dt_tutorial_name %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.dt_group_name %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.text_xml_valid %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.feedback.passed unless submission.feedback.nil? %></Data></Cell>
+  <Cell><Data ss:Type="Number"><%= submission.feedback.grade unless submission.feedback.nil? %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.feedback.text_xml_valid unless submission.feedback.nil? %></Data></Cell>
+</Row>

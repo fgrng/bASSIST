@@ -1,0 +1,9 @@
+- if signed_in?
+  - if current_user.is_assistant or current_user.is_admin
+    = render 'lectures/index/tasks_lecture'
+    hr
+    = render 'lectures/index/tasks_user'
+  - else
+    |  No Tasks 
+- else
+  |  No Tasks 
