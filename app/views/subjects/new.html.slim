@@ -15,7 +15,7 @@
   = trl "Neues Themengebiet"
 
 - content_for :block do
-  = render '/subjects/form', locals: { subject: @subject}
+  = render partial: '/subjects/form', locals: { subject: @subject}
 
 - content_for :tasks do
   = fields_for(@subject) do |f|

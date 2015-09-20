@@ -18,13 +18,13 @@
   = @feedback.submission.htmlize_text
 
 - content_for :grading do
-  = render '/feedbacks/grading', locals: { feedback: @feedback, submission: @submission, exercise: @exercise }
+  = render partial: '/feedbacks/grading', locals: { feedback: @feedback, submission: @submission, exercise: @exercise }
 
 - content_for :feedback_block do
   - fields_for(@feedback) do |f|
     = f.text_area :text, class: "form-control", :placeholder => "Put your text here."
 
 - content_for :tasks do
-  = render '/feedbacks/submit', feedback: @feedback
+  = render partial: '/feedbacks/submit', feedback: @feedback
 
 = render template: "layouts/editor_feedback"
