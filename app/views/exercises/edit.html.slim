@@ -12,7 +12,7 @@
   = trl @exercise.subject.lecture.exercise_name(@exercise.type)
 
 - content_for :block do
-  = render '/exercises/form', locals: { exercise: @exercise }
+  = render partial: '/exercises/form', locals: { exercise: @exercise }
 
 - content_for :tasks do
   = fields_for(@exercise) do |f|
