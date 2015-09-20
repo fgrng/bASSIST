@@ -1,0 +1,20 @@
+- if run.type == LsaRun::TYPE_SCORING
+  = link_to \
+    trl('Ergebnisse'),
+    "#",
+    class: "btn btn-xs btn-info disabled"
+- elsif run.type == LsaRun::TYPE_SORTING
+  = link_to \
+  trl('Ergebnisse'),
+  "#",
+  class: "btn btn-xs btn-info disabled"
+- elsif run.type == LsaRun::TYPE_PLAGIARISM and run.error_message=LsaRun::STATUS_DONE
+  = link_to \
+    trl('Ergebnisse'),
+    lsa_plagiarism_run_lsa_plagiarisms_path(run),
+    class: "btn btn-xs btn-info"
+- else
+  = link_to \
+    trl('Ergebnisse'),
+    "#",
+    class: "btn btn-xs btn-info disabled"

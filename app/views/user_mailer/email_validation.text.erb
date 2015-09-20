@@ -1,0 +1,8 @@
+Hallo <%= @user.decorate.full_name %>,
+
+für Sie wurde auf bASSIST ein Account angelegt. Um diesen nutzen zu können, müssen Sie bestätigen, dass Sie die dort registrierte Email-Adresse abrufen können. Bitte klicken sie dazu auf den folgendem Link.
+
+  <%= email_validation_url(@user.email_validation_token) %>
+
+Mit freundlichem Gruß
+das bASSIST-Team

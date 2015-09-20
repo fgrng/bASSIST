@@ -1,0 +1,13 @@
+- fields_for(subject) do |f|
+  .form-group
+    = f.label :name, trl("Name"), class: "control-label col-md-3"
+    .col-md-8
+      = f.text_field :name, class: "form-control", placeholder: "Name"
+  .form-group
+    = f.label :start_date, trl("Startdatum"), class: "control-label col-md-3"
+    .col-md-8.form-inline
+      = f.datetime_select :start_date, {:default => 7.days.from_now}, {class: "form-control"}
+  .form-group
+    = f.label :due_date, trl("Abgabedatum"), class: "control-label col-md-3"
+    .col-md-8.form-inline
+      = f.datetime_select :due_date, {:default => 14.days.from_now}, {class: "form-control"}

@@ -1,0 +1,11 @@
+button.btn.btn-link.btn-xs[type="button"
+  data-container="body"
+  data-toggle="popover"
+  data-placement="right"
+  title="Informationen"
+  data-content== render("lsa_plagiarisms/plagiarism_student_info_content",
+    student: student,
+    ex_name: ex_name,
+    lect_name: lect_name)
+  ]
+  = student.list_name

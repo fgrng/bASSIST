@@ -1,0 +1,23 @@
+<Table>
+  <Row>
+    <Cell><Data ss:Type="String">UserID</Data></Cell>
+    <Cell><Data ss:Type="String">Nachname</Data></Cell>
+    <Cell><Data ss:Type="String">Vorname</Data></Cell>
+    <Cell><Data ss:Type="String">Email</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppe</Data></Cell>
+    <Cell><Data ss:Type="String">Tutorium</Data></Cell>
+    <Cell><Data ss:Type="String">Validiert</Data></Cell>
+  </Row>
+  <% collection.students.decorate.each do |student| %>
+  <Row>
+    <Cell><Data ss:Type="String"><%= student.user.id %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.user.last_name %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.user.first_name %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.user.email_raw %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.group_name %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.tutorial_name %></Data></Cell>
+    <Cell><Data ss:Type="String"><%= student.validated %></Data></Cell>
+  </Row>
+  <% end %>
+</Table>
+

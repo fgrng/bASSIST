@@ -1,0 +1,21 @@
+= fields_for(feedback) do |f|
+  = f.submit "Speichern",
+    class: "btn btn-default btn-block",
+    name: "save",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Das Feedback wird gespeichert. Es kann weiterhin bearbeitet werden."
+
+  = f.submit "Speichern und Beenden",
+    class: "btn btn-default btn-block",
+    name: "exit",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Das Feedback wird gespeichert und der Editor verlassen. Es kann weiterhin bearbeitet werden"
+
+  = f.submit "Speichern und Abgeben",
+    class: "btn btn-default btn-block",
+    name: "publish",
+    "data-toggle" => "tooltip",
+    "data-placement" => "left",
+    "title" => "Das Feedback wird gespeichert und veröffentlicht. Damit ist es für den*die Student*in sichtbar."

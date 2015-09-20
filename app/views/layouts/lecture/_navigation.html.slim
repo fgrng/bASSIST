@@ -1,0 +1,16 @@
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        ul.nav.nav-pills.nav-justified
+          - if signed_in?
+            - if current_user.is_teacher?(@lecture)
+              = render 'layouts/lecture/navi_teacher'
+            - elsif current_user.is_tutor?(@lecture)
+              = render 'layouts/lecture/navi_tutor'
+            - elsif current_user.is_student?(@lecture)
+              = render 'layouts/lecture/navi_student'
+            - else
+              = render 'layouts/lecture/navi_anonym'
+          - else
+            = render 'layouts/lecture/navi_anonym'

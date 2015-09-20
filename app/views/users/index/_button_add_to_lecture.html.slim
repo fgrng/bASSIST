@@ -1,0 +1,11 @@
+.btn-group
+  button.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Student hinzufügen"
+    span.caret<>
+  ul.dropdown-menu
+    - lectures = Lecture.recent.select { |l| !(user.has_role?(l)) }
+    - lectures.each do |lecture|
+      li
+        - lecture = lecture.decorate
+        = link_to (lecture.name_string).html_safe,
+          add_user_lecture_path(user,lecture)

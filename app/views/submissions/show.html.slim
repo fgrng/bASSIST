@@ -1,0 +1,5 @@
+- content_for :page_title do
+  = trl "Abgabe"
+- content_for :page_subtitle do
+  = @subject.name
+= render template: "layouts/viewer_submission"

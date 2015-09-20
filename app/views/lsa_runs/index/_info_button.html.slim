@@ -1,0 +1,6 @@
+- exercises.each do |ex|
+  p
+    strong
+      = ex.decorate.name
+    br
+    = ex.decorate.subject.lecture.name_string

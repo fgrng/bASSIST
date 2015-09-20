@@ -1,0 +1,26 @@
+.progress
+  - if @feedback.passed?
+    .progress-bar.progress-bar-success[
+      role="progressbar"
+      aria-valuenow="#{@feedback.grade}"
+      aria-valuemin="#{@submission.exercise.min_points}"
+      aria-valuemax="#{@submission.exercise.max_points}"
+      style="width: #{@feedback.points_percent}"]
+        = @feedback.points_percent
+  - else
+    .progress-bar.progress-bar-danger[
+      role="progressbar"
+      aria-valuenow="#{@feedback.grade}"
+      aria-valuemin="#{@submission.exercise.min_points}"
+      aria-valuemax="#{@submission.exercise.max_points}"
+      style="width: #{@feedback.points_percent}"]
+        = @feedback.points_percent
+  span.sr-only
+    - if @feedback.passed?
+      = @feedback.points_percent
+      |  Complete (Success)
+    - else
+      ="progress-bar-danger"
+      = @feedback.points_percent
+      |  Complete (Failure)
+    = @feedback.points_percent

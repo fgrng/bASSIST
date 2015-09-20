@@ -1,0 +1,50 @@
+- content_for :page_title do
+  |  LSA Server 
+- content_for :sub do
+  .row
+    .col-md-12
+      .panel.panel-default
+        table.table.table-hover
+          tr
+            th
+              = trl "Name"
+            th
+              = trl "JSON Url"
+            th
+              = trl "JSON Port"
+            th
+              = trl "JSON Path"
+            th
+              = trl "RMI Url"
+            th
+              = trl "RMI Port"
+            th
+          - @lsa_servers.each do |lsa|
+            - if lsa.ping
+              tr.success
+            - else
+              tr.danger
+            td
+              = lsa.name
+            td
+              = lsa.json_url
+            td
+              = lsa.json_port
+            td
+              = lsa.json_path
+            td
+              = lsa.rmi_url
+            td
+              = lsa.rmi_port
+            td
+              .btn-group
+                = link_to(trl('Editieren'),
+                  edit_lsa_server_path(lsa),
+                  class: "btn btn-xs btn-info")
+                = link_to(trl('Löschen'),
+                  lsa_server_path(lsa),
+                  method: :delete,
+                  data: {confirm: 'Are you sure?'},
+                  class: "btn btn-xs btn-danger")
+
+= render template: "layouts/main"

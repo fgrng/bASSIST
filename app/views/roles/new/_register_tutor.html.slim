@@ -1,0 +1,28 @@
+.modal.fade[
+  id="#{lecture.id.to_s}tutor"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"]
+  .modal-dialog.text-left
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h4.modal-title[id="#{lecture.id.to_s}tutor"]
+          = trl "Als Tutor*in registrieren"
+      .modal-body
+        p
+          |  Möchten Sie sich wirklich als 
+          strong
+            | Tutor*in
+          |  in den Kurs 
+          strong
+            = lecture.name
+          |  in 
+          strong
+            = lecture.term_string
+          |  registrieren? 
+        = bootstrap_form_for :tutor, url: lecture_tutors_path(lecture) do |f|
+          = f.text_field :key, label: "Tutor*innen Schlüssel"
+          = f.primary "Register"

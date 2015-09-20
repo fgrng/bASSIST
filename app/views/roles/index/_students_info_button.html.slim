@@ -1,0 +1,8 @@
+button.btn.btn-link.btn-xs[
+  type="button"
+  data-container="body"
+  data-toggle="popover"
+  data-placement="right"
+  title="#{name}"
+  data-content="#{render(:partial => 'roles/index/students_info_content', :locals => { :name => name, :email => email })}"]
+  = name

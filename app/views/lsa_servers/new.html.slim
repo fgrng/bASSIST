@@ -1,0 +1,15 @@
+- content_for :page_title do
+  |  LSA Server 
+- content_for :page_subtitle do
+  |  Bitte erstellen Sie einen neuen LSA Server 
+- content_for :sub do
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title.text-center
+            | Neuer LSA Server
+        .panel-body
+          = render '/lsa_servers/form'
+
+= render template: "layouts/main"

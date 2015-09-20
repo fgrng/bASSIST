@@ -1,0 +1,33 @@
+- content_for :sub do
+  .row
+    .col-md-12
+      - unless @feedback.nil? or @feedback.is_visible == false
+        - if Exercise::TYPE_STATEMENTS.include?(@submission.exercise.type)
+          = render 'layouts/viewer/submission_bar_statement'
+        - elsif Exercise::TYPE_REFLECTIONS.include?(@submission.exercise.type)
+          = render 'layouts/viewer/submission_bar_reflection'
+      - else
+        = render 'layouts/viewer/submission_bar_not_graded'
+
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            = trl "Abgabe von #{@submission.student_full_name}"
+        .panel-body
+          = @submission.htmlize_text
+
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            = trl "Feedback"
+        .panel-body
+          .textarea
+            - unless @feedback.nil? || @feedback.is_visible == false
+              = @feedback.htmlize_text
+            - else
+              = trl "Kein Feedback vorhanden."
+
+= render template: "layouts/main"

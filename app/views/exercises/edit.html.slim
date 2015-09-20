@@ -1,0 +1,21 @@
+- content_for :page_subtitle do
+  = trl "Bitte bearbeiten Sie die Aufgabe vom Typ " + @exercise.subject.lecture.exercise_name(@exercise.type)
+
+- record = @exercise
+
+- content_for :before_content do
+  - form_tag(record, class: "form-horizontal", method: 'patch')
+
+- content_for :after_content do
+
+- content_for :block_title do
+  = trl @exercise.subject.lecture.exercise_name(@exercise.type)
+
+- content_for :block do
+  = render '/exercises/form', locals: { exercise: @exercise }
+
+- content_for :tasks do
+  = fields_for(@exercise) do |f|
+    = f.submit "Speichern und Beenden", class: "btn btn-default btn-large btn-block"
+
+= render template: "layouts/editor_subject"

@@ -1,0 +1,15 @@
+- content_for :page_subtitle do
+  = trl "Abgaben"
+
+- content_for :tasks do
+
+- content_for :table_title do
+  | Submissions#Index [:student_id]
+  .pull-right
+    small
+      |  Abgaben 
+
+- content_for :table do
+  | Find me in app/views/submissions/index_student.html.slim
+
+= render template: "layouts/lecture/table"

@@ -1,0 +1,27 @@
+- content_for :page_subtitle do
+  = trl "Aufgabe"
+
+- content_for :block_title do
+  = @exercise.name
+
+- content_for :block do
+  dl.dl-horizontal
+    dt
+      = trl "Themengebiet"
+    dd
+      = @subject.name
+    dt
+      = trl "Abgabedatum"
+    dd
+      = Time.zone.at(@subject.due_date).strftime("%d. %B %Y – %H:%M")
+    dt
+      = trl "Aufgabentext"
+    dd
+      = @exercise.htmlize_text
+    - if current_user.is_teacher_or_tutor?(@lecture) and !@exercise.ideal_solution.nil?
+      dt
+        = trl "Ideallösung"
+      dd
+        = @exercise.ideal_solution
+
+= render template: "layouts/lecture/table"

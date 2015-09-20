@@ -1,0 +1,17 @@
+- content_for :page_title do
+  |  Passwort vergessen 
+- content_for :page_subtitle do
+  |  Bitte geben Sie Ihre Email-Adresse an. 
+- content_for :sub do
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title.text-center
+            = trl("Passwort vergessen")
+        .panel-body
+          = bootstrap_form_for(:password_reset, layout: :horizontal, url: password_resets_path, label_col: "col-md-3", control_col: "col-md-8") do |f|
+            = f.email_field :email, placeholder: "Email"
+            = f.form_group do
+              = f.primary "Passwort vergessen"
+= render template: "layouts/main"

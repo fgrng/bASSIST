@@ -1,0 +1,2 @@
+class BReflection < Reflection
+end

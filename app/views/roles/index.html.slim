@@ -1,0 +1,73 @@
+- content_for :page_subtitle do
+  - if @type == Role::TYPE_STUDENT
+    |  Student*innen 
+  - elsif @type == Role::TYPE_TUTOR
+    |  Tutor*innen 
+  - elsif @type == Role::TYPE_TEACHER
+    |  Dozent*innen 
+  - else
+    |  Rollen 
+
+- content_for :table_title do
+  - if @type == Role::TYPE_STUDENT
+    |  Student*innen 
+  - elsif @type == Role::TYPE_TUTOR
+    |  Tutor*innen 
+  - elsif @type == Role::TYPE_TEACHER
+    |  Dozent*innen 
+  - else
+    |  Rollen 
+
+- content_for :table do
+  - id_string = "#{@type.underscore.pluralize}"
+  - id_string += "_tutorial" unless @tutorial.nil?
+  table.table.table-hover[id=id_string]
+    thead
+      - if @tutorial == nil
+        = render "roles/index/#{@type.underscore.pluralize}_table_head"
+      - else
+        = render "roles/index/tutorial_table_head"
+    tbody
+        = render "roles/index/#{@type.underscore.pluralize}_table_body"
+
+- content_for :tasks do
+  - if @type == Role::TYPE_STUDENT
+    = link_to trl("Gruppen zuordnen"),
+      fill_groups_lecture_path(@lecture),
+      class: "btn btn-default btn-large btn-block",
+      "data-toggle" => "tooltip",
+      "data-placement" => "left",
+      "title" => "Student*innen, die noch keiner Gruppe zugeordnet sind, werden zufällig zugeordnet. Bestehende Zuordnungen werden nicht verändert."
+    = link_to trl("Gruppen leeren"),
+      clear_groups_lecture_path(@lecture),
+      class: "btn btn-default btn-large btn-block",
+      "data-toggle" => "tooltip",
+      "data-placement" => "left",
+      "title" => "Die Zuordnung von Gruppen und Student*innen wird aufgehoben."
+
+  - elsif @type == Role::TYPE_TUTOR
+    = link_to trl("Tutorien zuordnen"),
+      assign_tutorials_lecture_path(@lecture),
+      class: "btn btn-default btn-large btn-block",
+      "data-toggle" => "tooltip",
+      "data-placement" => "left",
+      "title" => "Tutor*innen, die noch keinem Tutorium zugeordnet sind, werden zufällig zugeordnet. Bestehende Zuordnungen werden nicht verändert."
+    = link_to trl("Zuordnung aufheben"),
+      deassign_tutorials_lecture_path(@lecture),
+      class: "btn btn-default btn-large btn-block",
+      "data-toggle" => "tooltip",
+      "data-placement" => "left",
+      "title" => "Die Zuordnung von Tutorien und Tutor*innen wird aufgehoben."
+
+
+- if signed_in?
+  - if current_user.is_teacher?(@lecture)
+    = render template: "layouts/lecture/col9col3"
+  - elsif current_user.is_tutor?(@lecture)
+    = render template: "layouts/lecture/table"
+  - elsif current_user.is_student?(@lecture)
+    = render template: "layouts/lecture/table"
+  - else
+    = render template: "layouts/lecture/table"
+- else
+  = render template: "layouts/lecture/table"

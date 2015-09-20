@@ -1,0 +1,9 @@
+- content_for :main do
+  #bassist-main-container.container
+    = render 'layouts/main/navigation'
+    = render 'layouts/main/messages'
+    = render 'layouts/main/jumbotron'
+    = render 'layouts/main/pagetitle'
+    = content_for?(:sub) ? yield(:sub) : yield
+    = render 'layouts/main/footer'
+= render template: "layouts/application"

@@ -1,0 +1,8 @@
+.btn-group
+  = render( \
+    :partial => 'submissions/index/buttons_submission',
+    :formats => :html,
+    :locals => {:submission => submission })
+  = link_to(trl('Neues Feedback'),
+    new_submission_feedback_path(submission),
+    class: "btn btn-xs btn-warning")

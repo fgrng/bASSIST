@@ -1,0 +1,10 @@
+<Worksheet ss:Name="<%= subject.name %>" >
+  <Table>
+    <%= render "lectures/export/head" %>
+    <% subject.exercises.each do |exercise| %>
+      <% exercise.submissions.visible.each do |submission| %>
+        <%= render "lectures/export/row", :submission => submission.decorate %>
+      <% end %>
+    <% end %>
+  </Table>
+</Worksheet>

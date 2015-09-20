@@ -1,0 +1,22 @@
+# Configuration File for bASSIST rails app.
+
+HOST_URL: example.com
+
+VALID_EMAIL_REGEX: /\A[\w+\-._]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+MAILER_DEFAULT_FROM: no-reply@example.com
+
+MAILER_SMTP_HOST: smtphost.com
+MAILER_SMTP_PORT: 587
+MAILER_AUTH: :plain
+MAILER_USER: username@smtphost.com
+MAILER_PW: super_secure_password
+MAILER_STARTLS: true
+
+development:
+  SECRET_TOKEN: XXXXX
+  ATTR_ENCRYPTION_KEY: YYYYY
+
+production:
+  SECRET_TOKEN: XXXXX
+  ATTR_ENCRYPTION_KEY: YYYYY

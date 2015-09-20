@@ -1,0 +1,52 @@
+- content_for :sub do
+  .row
+    .col-md-12
+      .progress
+        .progress-bar.progress-bar-danger[role="progressbar"
+          aria-valuenow="#{@plagiarism.progress_bar_value.to_i}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: #{@plagiarism.progress_bar_value.to_i.to_s}%"
+          ]
+          = @plagiarism.cosine_string
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            = trl "Abgabetext A"
+        .panel-body
+          = render 'layouts/viewer/plagiarism_info_box', collection: @lsa_passage_collection_a
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            = trl "Abgabetext B"
+        .panel-body
+          = render 'layouts/viewer/plagiarism_info_box', collection: @lsa_passage_collection_b
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          = @lsa_passage_collection_a.htmlize_text
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          = @lsa_passage_collection_b.htmlize_text
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          = bootstrap_form_for(@plagiarism) do |f|
+            = f.hidden_field :watched, value: -1
+            = f.submit "Als verdächtig markieren", class: "btn btn-danger btn-large btn-block"
+
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          = bootstrap_form_for(@plagiarism) do |f|
+            = f.hidden_field :watched, value: 1
+            = f.submit "Als unbedenklich markieren", class: "btn btn-success btn-large btn-block"
+    
+
+= render template: "layouts/main"

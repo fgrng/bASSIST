@@ -1,0 +1,85 @@
+- content_for :page_subtitle do
+  = trl "New Lsa Scoring Run"
+
+- content_for :before_content do
+  - form_tag([@lecture,@lsa_run], class: "form-horizontal")
+
+- content_for :block2_title do
+  = trl "Neuen Lsa Scoring Run erstellen"
+
+- content_for :block2 do
+  = fields_for(@lsa_run) do |f|
+    .form-group
+      = f.label :user_id, "Benutzer*in", class: "col-md-2 control-label"
+      .col-md-10
+        - users = [[current_user.decorate.full_name, current_user.id]]
+        = f.select :user_id,
+          options_for_select(users),
+          { },
+          { class: "form-control", readonly: true }
+    .form-group
+      = f.label :lsa_server_id, "Lsa Server", class: "col-md-2 control-label"
+      .col-md-10
+        - lsa_servers = Array.new
+        - LsaServer.all.each do |s|
+          - lsa_servers << [s.name,s.id]
+        = f.select :lsa_server_id, 
+          options_for_select(lsa_servers),
+          {},
+          { class: "form-control" }
+    .form-group.form-inline
+      = f.label :schedule_time, "Laufzeitpunkt", class: "col-md-2 control-label"
+      .col-md-10
+        = f.datetime_select :schedule_time,
+          { default: Time.current().change( {hour: 23, min: 59, sec: 59}) },
+          { class: "form-control" }
+    .form-group
+      = label_tag "exercise", "Ideallösung", class: "col-md-2 control-label"
+      .col-md-10
+        = text_area "exercise", "ideal_solution", class: "form-control", disabled: 'disabled'
+    .form-group
+      .col-md-6
+        = f.label :first_scored_text, "Erster bewerteter Text", class: "control-label"
+        = f.text_area :first_scored_text, class: "form-control"
+        = f.label :first_text_score, "Bewertung des ersten Text", class: "control-label"
+        = f.number_field :first_text_score,
+          label: "Bewertung des ersten Text",
+          class: "form-control",
+          :step => 0.01
+      .col-md-6
+        = f.label :second_scored_text, "Zweiter bewerteter Text", class: "control-label"
+        = f.text_area :second_scored_text, class: "form-control"
+        = f.label :second_text_score, "Bewertung des ersten Text", class: "control-label"
+        = f.number_field :second_text_score,
+          label: "Bewertung des ersten Text",
+          class: "form-control",
+          :step => 0.01
+    .form-group
+      .col-md-10
+        p
+          | Hiermit starten Sie eine Bewertung der Abgaben anhand einer Ideallösung.
+            Dieser Prozess kann einige Zeit in Anspruch nehmen und wird im Hintergrund ausgeführt.
+        = f.submit "Sortierung starten", class: "btn btn-primary"
+  
+- content_for :block_title do
+  = trl "Aufgabe auswählen"
+
+- content_for :block do
+  p
+    | Bitte wählen Sie die Aufgabe aus, die anhand von einer Ideallösung bewertet werden soll.
+
+  = fields_for(@lsa_run) do |f|
+    - Lecture.all.each do |lec|
+      .panel.panel-default
+        .panel-heading
+          h6.panel-title
+            a[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
+              = lec.decorate.name_string
+              span.caret<>
+        .panel-body.panel-collapse.collapse[id=lec.id]
+          - lec.exercises.joins("INNER JOIN lsa_runs ON (lsa_runs.exercise_id = exercises.id ANd lsa_runs.type = 'LsaSortingRun')").each do |ex|
+            .radio
+              = f.radio_button :exercise_id, ex.id
+              = f.label "exercise_id_#{ex.id}", ex.decorate.checkbox_name
+
+= render template: "layouts/lecture/table"

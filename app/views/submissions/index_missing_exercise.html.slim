@@ -1,0 +1,27 @@
+- content_for :page_subtitle do
+  = trl "Abgaben"
+
+- content_for :table_title do
+  = @exercise.name
+  .pull-left
+    small
+      |  keine Abgaben
+  .pull-right
+    small
+      = link_to trl("Abgaben"), exercise_submissions_path(@exercise), class: "btn btn-default btn-xs"
+
+- content_for :table do
+  table#no_submissions.table.table-hover
+    thead
+      tr
+        th
+          | Student*in
+        th
+          | Tutorium
+        th
+          | Gruppe
+        th
+          | Funktionen
+    tbody
+
+= render template: "layouts/lecture/table"

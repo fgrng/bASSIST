@@ -1,0 +1,2 @@
+$('#bassist-main-container').append("<%= j render partial: "roles/new/register_#{type}", locals: {type: type, lecture: lecture } %>");
+$("<%= '#' + lecture.id.to_s + "#{type}" %>").modal('show');

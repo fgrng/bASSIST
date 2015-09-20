@@ -1,0 +1,28 @@
+- content_for :page_subtitle do
+  |  LSA Plagiarisms
+
+- content_for :table_title do
+  = trl "LSA Plagiarisms"
+
+- content_for :table do
+  table#lsa_plagiarisms.table.table-hover
+    thead
+      tr
+        th
+          = trl "Student*in A"
+        th
+          = trl "Student*in B"
+        th
+          = trl "Kosinus"
+        th
+          = trl "Anteil A aus B"
+        th
+          = trl "Anteil B aus A"
+        th
+          = trl "Markierung"
+        th
+          = trl ""
+    tbody
+
+= render template: "layouts/lecture/table"
+

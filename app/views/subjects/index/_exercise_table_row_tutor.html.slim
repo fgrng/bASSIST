@@ -1,0 +1,21 @@
+tr
+  td
+    = exercise.type_name
+  td
+    = exercise.group_name
+  td
+    .btn-group
+      = link_to \
+        'Anzeigen',
+        send("#{exercise.type.underscore}_path", exercise),
+        class: "btn btn-xs btn-info"
+  td
+    - unless current_user.get_tutor(@lecture).tutorial.nil?
+      = link_to \
+        trl("Alle Abgaben"),
+        exercise_submissions_path(exercise),
+        class: "btn btn-xs btn-warning",
+        "data-count-submissions-tutorial" => "#{current_user.get_tutor(@lecture).tutorial.id}",
+        "data-count-submissions-exercise" => "#{exercise.id}"
+    - else
+      |  "Kein Tutorium zugewiesen" 

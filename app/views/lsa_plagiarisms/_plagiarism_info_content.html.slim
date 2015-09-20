@@ -1,0 +1,42 @@
+- if submission.external?
+  p
+    b
+      = trl "Name"
+    br
+      = submission.student_list_name
+  p
+    b
+      = trl "Mail"
+    br
+    = submission.student_email
+  p
+    b
+      = trl "Aufgabe"
+    br
+    = ex_name
+  p
+    b
+      = trl "Kurs"
+    br
+    = lect_name
+- else
+  p
+    b
+      = trl "Name"
+    br
+      = "Zusatzabgabe"
+  p
+    b
+      = trl "Kommentar"
+    br
+    = submission.comment
+  p
+    b
+      = trl "Aufgabe"
+    br
+    = ex_name
+  p
+    b
+      = trl "Kurs"
+    br
+    = lect_name

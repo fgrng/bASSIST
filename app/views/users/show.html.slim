@@ -1,0 +1,36 @@
+- content_for :sub do
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title.text-center
+            | Nutzerdaten
+        .panel-body
+          dl.dl-horizontal
+            dt
+              | Email:
+            dd
+              = @user.email
+            dt
+              | Vorname:
+            dd
+              = @user.first_name
+            dt
+              | Nachname:
+            dd
+              = @user.last_name
+            - if @user.is_assistant
+              dt
+                | Status:
+              dd
+                | Assistent
+            - if @user.is_admin
+              dt
+                | Status:
+              dd
+                | Administrator
+          = link_to "Bearbeiten",
+            edit_user_path(@user),
+            class: "pull-right btn btn-sm btn-info"
+
+= render template: "layouts/main"

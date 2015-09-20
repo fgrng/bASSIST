@@ -1,0 +1,12 @@
+= link_to \
+  "Bearbeiten",
+  edit_submission_path(submission),
+  class: "btn btn-xs btn-warning"
+
+= link_to \
+  "Löschen",
+  submission_path(submission),
+  class: "btn btn-xs btn-danger",
+  method: :delete,
+  data: {confirm: 'Are you sure?'}
+

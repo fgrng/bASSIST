@@ -1,0 +1,29 @@
+- content_for :page_title do
+  |  Themengebiet 
+
+- content_for :page_subtitle do
+  = @subject.name
+
+- content_for :lecture_sub do
+  .row
+    .col-md-9
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            | Thema: 
+            = @subject.name
+        .panel-body
+          |  Abgabedatum: 
+          = Time.zone.at(@subject.due_date).strftime("%d. %B %Y – %H:%M")
+    .col-md-3
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            | Funktionen
+        .panel-body
+          = link_to \
+            "Edit",
+            edit_subject_path(@subject),
+            class: "btn btn-default btn-large btn-block"
+
+- render template: "layouts/lecture"

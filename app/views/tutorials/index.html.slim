@@ -1,0 +1,46 @@
+- content_for :page_subtitle do
+  = trl "Tutorien"
+
+- content_for :block_title do
+  = trl "Tutorien"
+
+- content_for :col do
+  - students_without = @lecture.valid_students.where(tutorial_id: nil)
+  - unless students_without.empty?
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title.panel-title.text-center
+          a[data-toggle="collapse" data-parent="#without" href="#without"]
+            = trl "Student*innen ohne Tutorium"
+            |  ( 
+            = students_without.count
+            =< trl "Student*innen"
+            |  ) 
+            span.caret<>
+      #without.panel-collapse.collapse
+        table.table.table-hover
+          = render "tutorials/index/students_table_head"
+          - students_without.each do |student|
+            = render "tutorials/index/students_table_row", :student => student.decorate
+
+  - @tutorials.each do |tutorial|
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title.panel-title.text-center
+          a[data-toggle="collapse" data-parent="#tut_#{tutorial.id}" href="#tut_#{tutorial.id}"]
+            = tutorial.name
+            |  ( 
+            = tutorial.members
+            =< trl "Student*innen"
+            |  ) 
+            span.caret<>
+      .panel-collapse.collapse[id="tut_#{tutorial.id}"]
+        table.table.table-hover
+          = render "tutorials/index/students_table_head"
+          - tutorial.valid_students.each do |student|
+            = render "tutorials/index/students_table_row", :student => student.decorate
+
+- content_for :tasks do
+  = render "tutorials/index/teacher_tasks"
+
+= render template: "layouts/lecture/col9col3"

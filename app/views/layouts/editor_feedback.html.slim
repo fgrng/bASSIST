@@ -1,0 +1,40 @@
+- content_for :sub do
+  = yield :before_content
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            - if content_for?(:submission_title)
+              = yield(:submission_title)
+            - else
+              |  Abgabe 
+        .panel-body
+          = yield :submission_block
+    .col-md-6
+      .row
+        .col-md-12
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title.text-center
+                | Feedback
+            .panel-body
+              = yield :feedback_block
+      .row
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title.text-center
+                | Bewertung
+            .panel-body
+              = yield :grading
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title.text-center
+                | Funktionen
+            .panel-body
+              = yield :tasks
+  = yield :after_content
+
+= render template: "layouts/main"

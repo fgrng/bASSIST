@@ -1,0 +1,46 @@
+= content_for :lecture_sub do
+  - if content_for?(:before_content)
+    = yield :before_content
+  - if content_for?(:sub_nav)
+    = yield :sub_nav
+  .row
+    .col-md-12
+      - if content_for?(:col)
+        = yield :col
+      - if content_for?(:block)
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title.text-center
+              = yield :block_title
+          .panel-body
+            = yield :block
+  - if content_for?(:block2)
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title.text-center
+              = yield :block2_title
+          .panel-body
+            = yield :block2
+  - if content_for?(:table)
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title.text-center
+              = yield :table_title
+          = yield :table
+  - if content_for?(:table2)
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title.text-center
+              = yield :table2_title
+          = yield :table2
+
+  - if content_for?(:after_content)
+    = yield :after_content
+
+= render template: "layouts/lecture"

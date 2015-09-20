@@ -1,0 +1,11 @@
+.btn-group
+  button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Registrieren als…"
+    span.caret<>
+  ul.dropdown-menu.text-left
+    li
+      = link_to "Student*in", new_lecture_student_path(lecture), :remote => true
+    li
+      = link_to "Tutor*in", new_lecture_tutor_path(lecture), :remote => true
+    li
+      = link_to "Dozent*in", new_lecture_teacher_path(lecture), :remote => true

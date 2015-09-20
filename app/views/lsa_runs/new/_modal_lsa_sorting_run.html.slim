@@ -1,0 +1,21 @@
+#<ruby code="= exercise.id.to_s + LsaRun::TYPE_SORTING.underscore"></ruby>.modal.fade[tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"]
+  .modal-dialog.text-left
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h4#<ruby code="= exercise.id.to_s + "sorting""></ruby>.modal-title
+          = trl "LSA Sortierung starten"
+      .modal-body
+        p
+          |  Hiermit starten Sie eine LSA Sortierung der Abgaben. Dieser Prozess kann einige Zeit in Anspruch nehmen und wird im Hintergrund ausgeführt. Wenn der Prozess abgeschlossen ist, können sie das Ergebnis hier einsehen. 
+        - url = exercise_lsa_sorting_runs_path(exercise)
+        = form_tag(url) do |f|
+          .form-group
+            = label_tag "Termin"
+            = datetime_select 'schedule_time',
+            -             nil,
+            -             class: "form-control",
+            -             default: Time.current().change({hour: 23, min: 59, sec: 59})
+          .form-group
+            = submit_tag "Sortierung starten", class: "btn btn-primary"

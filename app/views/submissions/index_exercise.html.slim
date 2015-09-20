@@ -1,0 +1,36 @@
+- content_for :page_subtitle do
+  = trl "Abgaben"
+
+- content_for :table_title do
+  = trl @exercise.name
+  .pull-left
+    small
+      | Abgaben 
+  .pull-right
+    small
+      = link_to trl("Fehlende Abgaben"), missing_exercise_submissions_path(@exercise), class: "btn btn-default btn-xs"
+
+- content_for :table do
+  table#submissions.table.table-hover
+    thead
+      tr
+        th
+          | Student*in
+        th
+          | Tutorium
+        th
+          | Gruppe
+        th
+          | Bestanden
+        th
+          | Bewertung
+        - if @lecture.show_lsa_score
+          th
+            | LSA Bewertung
+        th
+          | Letzte Änderung
+        th
+          | Funktionen
+    tbody
+
+= render template: "layouts/lecture/table"

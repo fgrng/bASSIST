@@ -1,0 +1,21 @@
+= link_to trl("Neues Themengebiet"), new_lecture_subject_path(@lecture), class: "btn btn-default btn-large btn-block"
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Themengebiet bearbeiten"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @subjects.each do |subject|
+      li
+        = link_to subject.name, edit_subject_path(subject)
+.btn-group.btn-block
+  button.btn.btn-default.btn-large.btn-block.dropdown-toggle[type="button" data-toggle="dropdown"]
+    = trl "Themengebiet löschen"
+    span.caret<>
+  ul.dropdown-menu.dropdown-menu-right
+    - @subjects.each do |subject|
+      li
+        = link_to \
+          subject.name,
+          subject_path(subject),
+          method: :delete,
+          data: {confirm: 'Are you sure?'}

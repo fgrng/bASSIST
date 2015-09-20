@@ -1,0 +1,16 @@
+- content_for :page_title do
+  |  Kurse 
+- content_for :sub do
+  .row
+    .col-md-9
+      - @lectures.each do |lecture|
+        = render "lectures/index/lectures_block", :lecture => lecture
+    .col-md-3
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.text-center
+            | Funktionen
+        .panel-body
+          = render "lectures/index/tasks"
+
+= render template: "layouts/main"

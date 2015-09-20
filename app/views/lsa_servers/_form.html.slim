@@ -1,0 +1,9 @@
+= bootstrap_form_for(@lsa_server, layout: :horizontal, label_col: "col-md-3", control_col: "col-md-8") do |f|
+  = f.text_field :name, placeholder: "Name"
+  = f.text_field :json_url, placeholder: "JSON url"
+  = f.number_field :json_port, :min => 1, :max => 65535, :step => 1
+  = f.text_field :json_path, placeholder: "JSON path"
+  = f.text_field :rmi_url, placeholder: "RMI url"
+  = f.number_field :rmi_port, :min => 1, :max => 65535, :step => 1
+  = f.form_group do
+    = f.primary

@@ -1,0 +1,12 @@
+- content_for :page_subtitle do
+  = trl @type.pluralize
+- content_for :table_title do
+  = trl @type.pluralize
+- content_for :table do
+  table.table.table-hover
+    = render "roles/index/tutorial_table_head"
+    - @roles.each do |role|
+      = render "roles/index/tutorial_table_row", :role => role.decorate
+- content_for :tasks do
+
+= render template: "layouts/lecture/table"

@@ -1,0 +1,25 @@
+.btn-group
+  = render( \
+    :partial => 'submissions/index/buttons_submission',
+    :formats => :html,
+    :locals => {:submission => submission })
+  .btn-group
+    button#dropdown_feedback.btn.btn-info.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+      | Feedback
+      span.caret<>
+    ul.dropdown-menu[role="menu" aria-labelledby="dropdown_feedback"]
+      li
+        = link_to(trl('Bearbeiten'),
+          edit_feedback_path(submission.feedback) )
+      li
+        = link_to(trl('Löschen'),
+          feedback_path(submission.feedback),
+          method: :delete,
+          data: {confirm: 'Are you sure?'} )
+      li
+        - if submission.feedback.is_visible
+          = link_to(trl('Depublizieren'),
+            toggle_public_feedback_path(submission.feedback) )
+        - else
+          = link_to(trl('Veröffentlichen'),
+            toggle_public_feedback_path(submission.feedback) )

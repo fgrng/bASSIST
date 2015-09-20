@@ -1,0 +1,60 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ *= require_self
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require_tree .
+ */
+
+@import "bootstrap";
+@import "rails_bootstrap_forms";
+@import "bootstrap3-switch";
+
+/* GLOBAL STYLE VARIABLES
+-------------------------------------------------- */
+
+$body-bg:    #fafafa;
+
+
+/* MAIN HTML ELEMENTS
+-------------------------------------------------- */
+
+html {
+		position: relative;
+		min-height: 100%;
+}
+
+body {
+		background: #fafafa;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 60px;
+}
+
+
+/* NAVBAR
+-------------------------------------------------- */
+
+.navbar-brand {
+		margin-top: -10px
+}
+
+.navbar-btn {
+		margin-left: 8px;
+}
+
+
+/* FORMS
+-------------------------------------------------- */
+
+textarea {
+		resize: vertical;
+}
+
+/* SPECIAL ELEMENTS
+-------------------------------------------------- */
+
+.lsa-passage {
+		background-color: #FFFF00
+}

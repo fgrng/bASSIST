@@ -1,0 +1,24 @@
+- content_for :page_title do
+  |  Nutzer 
+- content_for :page_subtitle do
+
+- content_for :sub do
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-body
+          table#users.table.table-hover
+            thead
+              tr
+                th
+                  | UserID
+                th
+                  | Nachname
+                th
+                  | Vorname
+                th
+                  | Email
+                th
+            tbody
+
+= render template: "layouts/main"

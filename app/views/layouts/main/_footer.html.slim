@@ -1,0 +1,16 @@
+.navbar.navbar-default.navbar-static-bottom[role="navigation"]
+  .container-fluid
+    ul.nav.navbar-nav
+      li
+        = link_to "Anleitung",
+          "https://github.com/fgrng/bASSIST/wiki/UserGuide"
+      li
+        = link_to "FAQ",
+          "https://github.com/fgrng/bASSIST/wiki/UserGuide%23FAQ"
+      li
+        = link_to "Fehler melden",
+          "https://github.com/fgrng/bASSIST/issues"
+    ul.nav.navbar-nav.navbar-right
+      li
+        = link_to "Impressum",
+          Figaro.env.impressum_link

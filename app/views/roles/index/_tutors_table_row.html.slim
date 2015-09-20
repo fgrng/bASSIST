@@ -1,0 +1,16 @@
+tr
+  td
+    = role.list_name
+  td
+    .btn-group
+      button.btn.btn-default.btn-xs.dropdown-toggle[type="button" data-toggle="dropdown"]
+        - if role.tutorial.nil?
+          = trl "Assign tutorial"
+        - else
+          = role.tutorial.name
+        span.caret<>
+      ul.dropdown-menu
+        - @lecture.tutorials.decorate.each do |tutorial|
+          li
+            = link_to tutorial.name,
+              assign_tutorial_tutor_path(tutorial,role)

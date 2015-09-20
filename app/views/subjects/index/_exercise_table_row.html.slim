@@ -1,0 +1,19 @@
+- if signed_in?
+  - if current_user.is_teacher?(@lecture)
+    = render 'subjects/index/exercise_table_row_teacher', :exercise => exercise
+  - elsif current_user.is_tutor?(@lecture)
+    = render 'subjects/index/exercise_table_row_tutor', :exercise => exercise
+  - elsif current_user.is_student?(@lecture)
+    = render 'subjects/index/exercise_table_row_student',
+      :exercise => exercise,
+      :student => current_user.get_student(@lecture).decorate 
+- else
+  tr
+    td
+      = exercise.type_name
+    td
+      = exercise.group_name
+    td
+      = link_to('Show', exercise, class: "btn btn-xs btn-info")
+    td
+      = trl "Not signed in."

@@ -1,0 +1,16 @@
+.navbar.navbar-default[role="navigation"]
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+        span.sr-only
+          | Toggle navigation
+      - if signed_in?
+        = link_to( image_tag("bassist_logo.png"), lectures_path, class: "navbar-brand" )
+      - else
+        = link_to( image_tag("bassist_logo.png"), root_path, class: "navbar-brand" )
+    .navbar-collapse.collapse
+      - if signed_in?
+        = render 'layouts/main/navigation/navigation_links'
+        = render 'layouts/main/navigation/navigation_logged_in'
+      - else
+        = render 'layouts/main/navigation/navigation_login_form'

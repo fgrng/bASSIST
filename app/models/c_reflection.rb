@@ -1,0 +1,2 @@
+class CReflection < Reflection
+end
