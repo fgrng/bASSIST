@@ -10,6 +10,14 @@ Das Tool bietet das folgende Setting:
 - Student\*innen erstellen Abgaben (Texte) zu den Aufgaben.
 - Tutor\*innen erstellen Feedback zu den Abgaben der Student\*innen und bewerten, ob die Aufgabe bestanden ist. Es ist ihnen auch möglich eine Bewertung der Abgabe zu bestimmen.
 
+## Version mit Plagiatsprüfung
+
+Diese Version von βASSIST ermöglicht es, die Abgaben der Student\*innen mit
+Hilfe einer Textanalyse Software auf Plagiate zu überprüfen und anhand
+einer Musterlösung zu bewerten. Um diese Funktionen nutzen zu können,
+benötigen Sie die entsprechende Textanalyse Software. Diese ist proprietär
+und nicht frei erhältlich.
+
 ## Installation
 
 Die βASSIST Webapplikation ist in dem Web Application Framework
