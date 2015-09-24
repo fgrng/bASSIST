@@ -1,8 +1,8 @@
 <Row>
   <% if submission.student.nil? %>
-    <Cell><Data ss:Type="String"></Data></Cell>
+  <Cell><Data ss:Type="String"></Data></Cell>
   <% else %>
-    <Cell><Data ss:Type="String"><%= submission.student.user.id %></Data></Cell>
+  <Cell><Data ss:Type="String"><%= submission.student.user.id %></Data></Cell>
   <% end %>
   <Cell><Data ss:Type="String"><%= submission.student_email_raw %></Data></Cell>
   <Cell><Data ss:Type="String"><%= submission.student_last_name %></Data></Cell>
@@ -14,6 +14,6 @@
   <Cell><Data ss:Type="String"><%= submission.feedback.passed unless submission.feedback.nil? %></Data></Cell>
   <Cell><Data ss:Type="Number"><%= submission.feedback.grade unless submission.feedback.nil? %></Data></Cell>
   <Cell><Data ss:Type="Number"><%= submission.lsa_position unless submission.lsa_position.nil? %></Data></Cell>
-	<Cell><Data ss:Type="Number"><%= submission.lsa_grade unless submision.lsa_grade.nil? %></Data></Cell>
+	<Cell><Data ss:Type="Number"><%= submission.lsa_grade unless submission.lsa_grade.nil? %></Data></Cell>
 	<Cell><Data ss:Type="String"><%= submission.feedback.text_xml_valid unless submission.feedback.nil? %></Data></Cell>
 </Row>
