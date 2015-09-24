@@ -79,17 +79,14 @@ class LsaScoringRun < LsaRun
 
   def valid_scoring?
     # Check exercise ideal solution
-    if (self.exercise.ideal_solution.nil? or
-        self.exercise.ideal_solution.empty?)
+    if self.exercise.ideal_solution.blank?
       self.error_message = ERROR_MISSING_IDEAL
       self.save
       return false
     end
     # Check example texts and rank
-    if (self.first_scored_text.nil? or
-        self.first_scored_text.empty? or
-        self.second_scored_text.nil? or
-        self.second_scored_text.empty? or
+    if (self.first_scored_text.blank? or
+        self.second_scored_text.blank? or
         self.first_text_score.nil? or
         !self.first_text_score.between?(exercise.min_points,exercise.max_points) or
         self.second_text_score.nil? or

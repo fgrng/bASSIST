@@ -70,17 +70,19 @@
 
   = fields_for(@lsa_run) do |f|
     - Lecture.all.each do |lec|
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
-            h6.panel-title
-              a.panel-title[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
-                = lec.decorate.name_string
-                span.caret<>
-          .panel-body.panel-collapse.collapse[id=lec.id]
-            - lec.exercises.joins("INNER JOIN lsa_runs ON (lsa_runs.exercise_id = exercises.id ANd lsa_runs.type = 'LsaSortingRun')").each do |ex|
-              .col-md-12.radio
-                = f.radio_button :exercise_id, ex.id
-                = f.label "exercise_id_#{ex.id}", ex.decorate.checkbox_name
+      - sorted_exercises = lec.exercises.joins("INNER JOIN lsa_runs ON (lsa_runs.exercise_id = exercises.id ANd lsa_runs.type = 'LsaSortingRun')")
+      - if sorted_exercises.any?
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              h6.panel-title
+                a.panel-title[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
+                  = lec.decorate.name_string
+                  span.caret<>
+            .panel-body.panel-collapse.collapse[id=lec.id]
+              - sorted_exercises.each do |ex|
+                .col-md-12.radio
+                  = f.radio_button :exercise_id, ex.id
+                  = f.label "exercise_id_#{ex.id}", ex.decorate.checkbox_name
 
 = render template: "layouts/lecture/table"

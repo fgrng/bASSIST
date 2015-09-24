@@ -160,9 +160,20 @@ class ExercisesController < ApplicationController
 			format.json{
 				run = LsaSortingRun.where(exercise_id: @exercise.id).last
 				sortings = run.lsa_sortings.ordered.to_a
-				percentile = (sortings.count / 10).to_i 
-				first_sub = sortings[percentile].submission
-				second_sub = sortings[-(percentile+1)].submission
+				percentile = (sortings.count / 10).to_i
+
+				first_index = percentile
+				while sortings[first_index].submission.ideal_solution.blank?
+					first_index += 1
+				end
+
+				second_index = -(percentile+1)
+				while sortings[second_index].submission.ideal_solution.blank?
+					second_index -= 1
+				end
+				
+				first_sub = sortings[first_index].submission
+				second_sub = sortings[second_index].submission
 				render json: { :first => first_sub, :second => second_sub, first_score: first_sub.grade, second_score: second_sub.grade }
 			}
 		end

@@ -81,7 +81,7 @@ class LsaRunsController < ApplicationController
         @run.second_text_score = params[run_param][:second_text_score]
       when LsaRun::TYPE_PLAGIARISM
         params[run_param][:exercise_ids].each do |id|
-          unless id.nil? or id.empty?
+          unless id.blank?
             ex = Exercise.find_by_id(id)
             @run.exercises << ex unless ex.nil?
           end

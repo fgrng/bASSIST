@@ -8,13 +8,24 @@
   .btn-group.btn-group-justified
     = link_to "New LsaPlagiarismRun",
       new_lecture_lsa_plagiarism_run_path(@lecture),
-      class: "btn btn-default"
+      class: "btn btn-default",
+      "data-toggle" => "tooltip",
+      "data-placement" => "bottom",
+      "title" => "Eine neue Plagiatsprüfung planen und starten."
+
     = link_to "New LsaSortingRun",
       new_lecture_lsa_sorting_run_path(@lecture),
-      class: "btn btn-default"
+      class: "btn btn-default",
+      "data-toggle" => "tooltip",
+      "data-placement" => "bottom",
+      "title" => "Eine neue automatische Sortierung planen und starten. Die Sortierung kann nur anhand einer Ideallösung durchgeführt werden."
+
     = link_to "New LsaScoringRun",
       new_lecture_lsa_scoring_run_path(@lecture),
-      class: "btn btn-default"
+      class: "btn btn-default",
+      "data-toggle" => "tooltip",
+      "data-placement" => "bottom",
+      "title" => "Eine neue automatische Bewertung planen und starten. Die Bewertung kann nur mit einer bereits vorhandenen Sortierung durchgeführt werden. Außerdem müssen zwei Texte beispielhaft bewertet werden."
 
 - content_for :table_title do
   = trl "Lsa Runs"
