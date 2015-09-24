@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = User.verified.find_by_email(params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      unless user.active_lecture_id.nil? or !(user.has_role?(user.active_lecture))
+      unless user.active_lecture.nil? or !(user.has_role?(user.active_lecture))
         redirect_to user.active_lecture
       else
         redirect_to lectures_path
