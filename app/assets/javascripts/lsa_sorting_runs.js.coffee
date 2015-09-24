@@ -6,4 +6,9 @@ jQuery ->
     element.click ->
       exercise_id = element[0].value
       $.getJSON "/exercises/" + exercise_id, (json) ->
-        area = $("#exercise_ideal_solution").val(json.ideal_solution).change()
+        evt = document.createEvent('Event');
+        evt.initEvent('autosize.update', true, false);
+        ta = document.querySelector("#exercise_ideal_solution")
+        ta.value = json.ideal_solution
+        ta.dispatchEvent(evt)
+

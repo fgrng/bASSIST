@@ -48,17 +48,18 @@
     | Bitte wählen Sie die Aufgaben aus, aus denen die Texte in die Plagiastprüfung einbezogen werden sollen. 
 
   - Lecture.all.each do |lec|
-    .panel.panel-default
-      .panel-heading
-        h6.panel-title
-          a[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
-            = lec.decorate.name_string
-            span.caret<>
-      .panel-body.panel-collapse.collapse[id=lec.id]
-        = fields_for(@lsa_run) do |f|
-          = f.collection_check_boxes(:exercise_ids, lec.exercises, :id, :checkbox_name) do |b|
-            .checkbox
-              = b.check_box
-              = b.label
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          h6.panel-title
+            a[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
+              = lec.decorate.name_string
+              span.caret<>
+        .panel-body.panel-collapse.collapse[id=lec.id]
+          = fields_for(@lsa_run) do |f|
+            = f.collection_check_boxes(:exercise_ids, lec.exercises, :id, :checkbox_name) do |b|
+              .col-md-12.checkbox
+                = b.check_box
+                = b.label
 
 = render template: "layouts/lecture/table"

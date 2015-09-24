@@ -53,16 +53,17 @@
 
   = fields_for(@lsa_run) do |f|
     - Lecture.all.each do |lec|
-      .panel.panel-default
-        .panel-heading
-          h6.panel-title
-            a[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
-              = lec.decorate.name_string
-              span.caret<>
-        .panel-body.panel-collapse.collapse[id=lec.id]
-          - lec.exercises.each do |ex|
-            .radio
-              = f.radio_button :exercise_id, ex.id
-              = f.label "exercise_id_#{ex.id}", ex.decorate.checkbox_name
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            h6.panel-title
+              a[data-toggle="collapse" href="##{lec.id}" aria-controls="#{lec.id}"]
+                = lec.decorate.name_string
+                span.caret<>
+          .panel-body.panel-collapse.collapse[id=lec.id]
+            - lec.exercises.each do |ex|
+              .col-md-12.radio
+                = f.radio_button :exercise_id, ex.id
+                = f.label "exercise_id_#{ex.id}", ex.decorate.checkbox_name
 
 = render template: "layouts/lecture/table"

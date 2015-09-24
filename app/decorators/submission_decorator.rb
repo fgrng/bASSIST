@@ -69,7 +69,19 @@ class SubmissionDecorator < ApplicationDecorator
     end
   end
 
-  # DataTables
+	def lsa_position
+		scoring = LsaSorting.where(submission: object).last
+		return scoring.position unless scoring.nil?
+		return nil
+	end
+
+	def lsa_grade
+		scoring = LsaScoring.where(submission: object).last
+		return scoring.grade unless scoring.nil?
+		return nil
+	end
+
+	# DataTables
 
   def dt_student_name
     handle_external do
