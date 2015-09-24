@@ -22,8 +22,8 @@
   = f.text_field :b_reflection_name, label: "Unbewerteter Aufgabentyp 3"
   = f.text_field :c_reflection_name, label: "Unbewerteter Aufgabentyp 4"
   hr
-  = f.date_select :register_start, {label: "Registrierung Start", layout: :horizontal}, { class: "form-control" }
-  = f.date_select :register_stop, {label: "Registrierung Ende", layout: :horizontal}, { class: "form-control" }
+  = f.datetime_select :register_start, {label: "Registrierung Start", layout: :horizontal}, { class: "form-control" }
+  = f.datetime_select :register_stop, {label: "Registrierung Ende", layout: :horizontal}, { class: "form-control" }
   = f.text_field :teacher_key, label: "Dozent*innen Schlüssel"
   = f.text_field :tutor_key, label: "Tutor*innen Schlüssel"
   = f.form_group do
