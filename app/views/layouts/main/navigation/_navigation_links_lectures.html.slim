@@ -1,28 +1,46 @@
 li
-  .btn-group.navbar-btn
-    - unless active_lecture.nil?
-      = link_to shorten_name(active_lecture.name), active_lecture, class:"btn btn-default"
-    - else
-      = link_to "Kurse", lectures_path, class:"btn btn-default"
-    button.btn.btn-default.dropdown-toggle[data-toggle="dropdown"]
+  = link_to "Alle Kurse", lectures_path
+
+- unless active_lecture.nil? 
+  li
+    = link_to shorten_name(active_lecture.name), active_lecture
+
+- if current_user.students.recent.any? \
+  and current_user.tutors.recent.any? \
+  and current_user.teachers.recent.any?
+  li.dropdown
+    a.dropdown-toggle[href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"]
       span.caret<>
-    ul.dropdown-menu
-      - Role::TYPES.each do |role|
+    ul.dropdown-menu.dropdown-menu-right
+      - if current_user.students.recent.any?
         li.dropdown-header
-          |  Kurse als 
-          - if role == Role::TYPE_STUDENT
-            |  Student*in 
-          - elsif role == Role::TYPE_TUTOR
-            |  Tutor*in 
-          - elsif role == Role::TYPE_TEACHER
-            |  Dozent*in 
-        - current_user.send(role.downcase.pluralize).each do |c|
+          |  Kurse als Student*in 
+        - current_user.students.recent.each do |c|
           - if active_lecture && active_lecture.id == c.lecture_id
             li.active
-              = link_to c.lecture.decorate.name_string, c.lecture
+              = link_to c.lecture.decorate.term_string_short, c.lecture
           - else
             li
-              = link_to c.lecture.decorate.name_string, c.lecture
+              = link_to c.lecture.decorate.term_string_short, c.lecture
         li.divider
-      li
-        = link_to "Alle Kurse", lectures_path
+      - if current_user.tutors.recent.any?
+        li.dropdown-header
+          |  Kurse als Tutor*in 
+        - current_user.tutors.recent.each do |c|
+          - if active_lecture && active_lecture.id == c.lecture_id
+            li.active
+              = link_to c.lecture.decorate.term_string_short, c.lecture
+          - else
+            li
+              = link_to c.lecture.decorate.term_string_short, c.lecture
+        li.divider
+      - if current_user.teachers.recent.any?
+        li.dropdown-header
+          |  Kurse als Dozent*in 
+        - current_user.teachers.recent.each do |c|
+          - if active_lecture && active_lecture.id == c.lecture_id
+            li.active
+              = link_to c.lecture.decorate.term_string_short, c.lecture
+          - else
+            li
+              = link_to c.lecture.decorate.term_string_short, c.lecture

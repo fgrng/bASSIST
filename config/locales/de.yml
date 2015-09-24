@@ -19,8 +19,8 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+de:
   will_paginate:
-    previous_label: "Next"
-    next_label: "Previous"
+    previous_label: "Zurück"
+    next_label: "Weiter"
     page_gap: "&hellip;"

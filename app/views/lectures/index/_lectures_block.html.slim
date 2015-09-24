@@ -14,14 +14,16 @@
         = trl "Semester"
       dd
         = lecture.term_string
-      dt
-        = trl "Dozent*in"
-      dd
-        = lecture.teacher
-      dt
-        = trl "Beschreibung"
-      dd
-        = lecture.description
+      - unless lecture.teacher.blank?
+        dt
+          = trl "Dozent*in"
+        dd
+          = lecture.teacher
+      - unless lecture.description.blank?
+        dt
+          = trl "Beschreibung"
+        dd
+          = lecture.description
     .text-right
       .btn-group
         - if signed_in?
@@ -30,5 +32,8 @@
           - else
               button.btn.btn-default[type="button" disabled="disabled"]
                 = trl("Registriert als " + current_user.get_role(lecture).type)
+        = link_to('Anzeigen', lecture_path(lecture), class: "btn btn-info")
+        - if signed_in? and ( current_user.is_assistant or current_user.is_admin or current_user.is_teacher?(lecture))
+          = link_to('Bearbeiten', edit_lecture_path(lecture), class: "btn btn-warning")
         - if signed_in? and ( current_user.is_assistant or current_user.is_admin )
-          = link_to('Bearbeiten', edit_lecture_path(lecture), class: "btn btn-info")
+          = link_to('Löschen', lecture_path(lecture), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'})

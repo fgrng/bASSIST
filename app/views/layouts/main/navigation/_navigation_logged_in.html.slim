@@ -1,13 +1,14 @@
 - full_name = current_user.first_name + " " + current_user.last_name
-ul.nav.navbar-nav.navbar-right
+.navbar-right
   p.navbar-text
-    |  Angemeldet als 
-  li.dropdown
-    a.dropdown-toggle[data-toggle="dropdown" href="#"]
-      = full_name
-      b.caret<>
-    ul.dropdown-menu.pull-right
-      li
-        = link_to "Persönliche Daten", current_user
-      li
-        = link_to "Abmelden", signout_path, method: "delete"
+    | Angemeldet als 
+  ul.nav.navbar-nav
+    li.dropdown
+      a.dropdown-toggle[data-toggle="dropdown" href="#"]
+        = full_name
+        b.caret<>
+      ul.dropdown-menu.pull-right
+        li
+          = link_to "Persönliche Daten", current_user
+        li
+          = link_to "Abmelden", signout_path, method: "delete"

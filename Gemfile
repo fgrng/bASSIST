@@ -57,6 +57,7 @@ gem 'rails-i18n'
 gem 'slim-rails'
 gem 'draper', '~> 1.3'
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'rb-readline'
 gem 'yaml_db'
 

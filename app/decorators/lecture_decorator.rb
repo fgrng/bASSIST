@@ -23,6 +23,14 @@ class LectureDecorator < ApplicationDecorator
     string + " " + self.term_year.to_s
   end
 
+	def term_string_short
+    string = object.term.capitalize + "S"
+		string += self.term_year.to_s[-2..-1]
+    string += ": "
+		string += object.name
+		return string
+  end
+
   def name_string
     self.term_string + ": " + object.name
   end
