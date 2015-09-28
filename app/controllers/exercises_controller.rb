@@ -163,12 +163,12 @@ class ExercisesController < ApplicationController
 				percentile = (sortings.count / 10).to_i
 
 				first_index = percentile
-				while sortings[first_index].submission.ideal_solution.blank?
+				while sortings[first_index].submission.text.blank?
 					first_index += 1
 				end
 
 				second_index = -(percentile+1)
-				while sortings[second_index].submission.ideal_solution.blank?
+				while sortings[second_index].submission.text.blank?
 					second_index -= 1
 				end
 				
