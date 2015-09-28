@@ -12,7 +12,7 @@ class ExercisesController < ApplicationController
   # Permissions
   before_action :require_permission, except: [:index, :show, :create_empty_sub, :create_extra_sub, :create_empty_sub, :count_submissions]
   before_action :require_permission_tutor, only: [:create_empty_sub, :count_submissions]
-  before_action :lecture_closed, except: [:index, :show, :count_submissions, :create_empty_sub]
+  before_action :lecture_closed, except: [:index, :show, :count_submissions, :lsa_sorting_last]
   
   # Actions (Resources)
 
