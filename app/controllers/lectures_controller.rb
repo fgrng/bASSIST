@@ -27,13 +27,15 @@ class LecturesController < ApplicationController
   end
 
   def index_assistant
-    @lectures = Lecture.all.order(created_at: :desc).decorate
+    lectures = Lecture.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    @lectures = LectureDecorator.decorate_collection(lectures)
     render 'lectures/index_assistant'
   end
 
   def index_others
-    @lectures = Lecture.recent.order(created_at: :desc).decorate
-    render 'lectures/index'
+    lectures = Lecture.recent.order(created_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    @lectures = LectureDecorator.decorate_collection(lectures)
+		render 'lectures/index'
   end
 
   def show

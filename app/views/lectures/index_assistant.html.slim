@@ -12,5 +12,6 @@
             | Funktionen
         .panel-body
           = render "lectures/index/tasks"
+      = will_paginate @lectures, renderer: BootstrapPagination::Rails
 
 = render template: "layouts/main"

@@ -12,14 +12,16 @@
       = trl "Semester"
     dd
       = @lecture.term_string
-    dt
-      = trl "Dozent*in"
-    dd
-      = @lecture.teacher
-    dt
-      = trl "Beschreibung"
-    dd
-      = @lecture.description
+    - unless @lecture.teacher.blank?
+      dt
+        = trl "Dozent*in"
+      dd
+        = @lecture.teacher
+    - unless @lecture.description.blank?
+      dt
+        = trl "Beschreibung"
+      dd
+        = @lecture.description
     - if signed_in? and current_user.is_student?(@lecture)
       dt
         = trl "Gruppenzugehörigkeit"

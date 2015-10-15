@@ -1,11 +1,11 @@
-- fields_for(exercise) do |f|
+= fields_for(exercise) do |f|
   .form-group
     = f.label :text, trl("Aufgabentext"), class: "control-label col-md-3"
     .col-md-8
       = f.text_area :text, class: "form-control", placeholder: "Hier Aufgabentext einfügen."
   .form-group
     - groups = [[ExerciseDecorator::GRP_EQUAL,-1],[ExerciseDecorator::GRP_DIFF,0]]
-    - (1..exercise.subject.lecture.max_group).each do |g|
+    - (1..lecture.max_group).each do |g|
       - groups << [('A'..'ZZ').to_a[g-1],g]
     = f.label :group_number, trl("Gruppe"), class: "control-label col-md-3"
     .col-md-8

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   before_create { generate_token(:remember_token) }
   before_validation { email.downcase! }
   before_save { strip_whitespaces }
-  # after_create { send_email_validation }
+  after_create { send_email_validation }
 
   # Validations
 

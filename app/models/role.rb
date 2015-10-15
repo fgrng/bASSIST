@@ -40,12 +40,19 @@ class Role < ActiveRecord::Base
 
   # Scopes
 
-  scope :students, -> { where(type: TYPE_STUDENT) }
+	scope :recent, -> {
+		joins(:lecture).
+			where(lectures: { is_visible: true }).
+      where(lectures: { year: 1.year.ago..Date.today })
+	}
+
+	scope :students, -> { where(type: TYPE_STUDENT) }
   scope :valid_students, -> { where(type: TYPE_STUDENT, validated: true) }
   scope :invalid_students, -> { where(type: TYPE_STUDENT, validated: false) }
   scope :all_students, -> { where(type: TYPE_STUDENT, validated: false) }
 
   scope :tutors, -> { where(type: TYPE_TUTOR) }
+	
   scope :teachers, -> { where(type: TYPE_TEACHER) }
 
 end
