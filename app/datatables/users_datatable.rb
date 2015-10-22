@@ -27,6 +27,7 @@ class UsersDatatable
         ERB::Util.h(user.last_name),
         ERB::Util.h(user.first_name),
         ERB::Util.h(user.email),
+				ERB::Util.h(user.validated),
         ERB::Util.h(@view.render(:partial => 'users/index/button_add_to_lecture', :formats => :html, :locals => {:user => user} ))
       ]
     end
@@ -37,7 +38,7 @@ class UsersDatatable
   end
   
   def fetch_users
-    users = User.verified.order("#{sort_column} #{sort_direction}")
+    users = User.all.order("#{sort_column} #{sort_direction}")
     users = users.page(page).per_page(per_page)
     if params[:search][:value].present?
       users = users.where("email like :search or first_name like :search or last_name like :search", search: "%#{params[:search][:value]}%")
@@ -54,7 +55,7 @@ class UsersDatatable
   end
 
   def sort_column
-    columns = %w[id last_name first_name email]
+    columns = %w[id last_name first_name email validated]
     columns[params[:order]["0"][:column].to_i]
   end
 
