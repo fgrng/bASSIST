@@ -15,7 +15,7 @@
   = trl "Abgabe von #{@feedback.submission.decorate.student_full_name}"
 
 - content_for :submission_block do
-  = @feedback.submission.htmlize_text
+  = @feedback.submission.decorate.htmlize_text
 
 - content_for :grading do
   = render partial: '/feedbacks/grading', locals: { feedback: @feedback, submission: @submission, exercise: @exercise }

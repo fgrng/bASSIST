@@ -28,7 +28,7 @@
   = render partial: '/submissions/submit', locals: {submission: @submission}
 
 - content_for :info do
-  = @submission.exercise.htmlize_text
+  = @submission.exercise.decorate.htmlize_text
 
 - content_for :help do
   |  Die Texte werden ohne Formatierungen (Schriftart, Schriftgröße, Auzeichnungen wie Fettdruck oder Kursivdruck) gespeichert. 
