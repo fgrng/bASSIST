@@ -25,6 +25,6 @@
     = f.text_area :text, class: "form-control", :placeholder => "Put your text here."
 
 - content_for :tasks do
-  = render partial: '/feedbacks/submit', feedback: @feedback
+  = render partial: '/feedbacks/submit', locals: { feedback: @feedback }
 
 = render template: "layouts/editor_feedback"

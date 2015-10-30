@@ -1,4 +1,4 @@
-- fields_for(feedback) do |f|
+= fields_for(feedback) do |f|
   - if Exercise::TYPE_STATEMENTS.include?(submission.exercise.type)
     .row
       = f.label :grade, "Bewertung", class: "control-label col-sm-5"
