@@ -17,27 +17,27 @@ class LsaPassageCollectionDecorator < ApplicationDecorator
 	end
 
 	def htmlize_text
-    text = self.submission.text
+		text = self.submission.text
 
 		start = 0
 		output = "".html_safe
-		
+
 		self.lsa_passages.order(first: :asc).each do |p|
 			unmarked = text[start...p.first]
 			marked = text[p.first..p.last].split(/\R\R/)
 			start = p.last+1
 
-			output += html_escape(unmarked)
-			output += content_tag(:span, marked.shift, :class => "lsa-passage", :passage => p.id , :mirror => p.mirror_id )
+			output += h.html_escape(unmarked)
+			output += h.content_tag(:span, marked.shift, :class => "lsa-passage", :passage => p.id , :mirror => p.mirror_id )
 			marked.each do |m|
 				output += "\n\n".html_safe
-				output += content_tag(:span, m, :class => "lsa-passage", :passage => p.id , :mirror => p.mirror_id )
+				output += h.content_tag(:span, m, :class => "lsa-passage", :passage => p.id , :mirror => p.mirror_id )
 			end
 		end
 
 		text = "".html_safe
 		output.split(/\R\R/).each do |o|
-			text += content_tag(:p, o.html_safe)
+			text += h.content_tag(:p, o.html_safe)
 		end
 
 		return text
