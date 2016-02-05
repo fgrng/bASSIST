@@ -35,6 +35,8 @@ class LsaPassageCollectionDecorator < ApplicationDecorator
 			end
 		end
 
+		output += text[start..-1]
+
 		text = "".html_safe
 		output.split(/\R\R/).each do |o|
 			text += h.content_tag(:p, o.html_safe)
