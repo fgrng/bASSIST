@@ -27,7 +27,7 @@ class UsersDatatable
         ERB::Util.h(user.last_name),
         ERB::Util.h(user.first_name),
         ERB::Util.h(user.email),
-				ERB::Util.h(user.validated),
+				ERB::Util.h(@view.render(:partial => 'users/index/button_email_valid', :formats => :html, :locals => {:user => user} )),
         ERB::Util.h(@view.render(:partial => 'users/index/button_add_to_lecture', :formats => :html, :locals => {:user => user} ))
       ]
     end

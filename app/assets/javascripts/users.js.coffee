@@ -10,5 +10,5 @@ jQuery ->
                 ajax: "users.json"
                 dom: '<"panel-heading"lf><"panel-body"t><p><"panel-footer"i>'
                 columnDefs: [
-                        { 'sortable': false, 'argets': [ 4 ] }
+                        { 'sortable': false, 'targets': [ 5 ] }
                 ]

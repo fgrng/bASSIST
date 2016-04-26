@@ -49,6 +49,9 @@ Bassist::Application.routes.draw do
     resources :lectures, only: [] do
       get 'add', :on => :member
     end
+    member do
+      get 'send_email_validation'
+    end
   end
 
   resources :tutorials, only: [] do
