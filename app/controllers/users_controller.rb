@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   # Filters
 
   # Set Variables
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :send_email_validation]
 
   # Permissions
-  before_action :require_login, except: [:index, :new, :create]
-  before_action :require_assistant, only: [:index, :destroy]
+  before_action :require_login, except: [:index, :new, :create, :send_email_validation]
+  before_action :require_assistant, only: [:index, :destroy, :send_email_validation]
 
   # Actions (Resources)
 
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:notice] = trl('Benutzer wurde erfolgreich angelegt. Um Ihren Account freizuschalten verifizieren Sie bitte Ihre Email-Adresse.')
+      flash[:notice] = trl('Benutzer wurde erfolgreich angelegt. Um Ihren Account freizuschalten, verifizieren Sie bitte Ihre Email-Adresse.')
       redirect_to signin_path
     else
       render action: 'new'
@@ -52,6 +52,17 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_url
   end
+
+	def send_email_validation
+		if @user.validated
+			flash[:alert] = trl("Benutzer ist bereits validiert. Es wurde keine neue Bestätigungsmail versendet.")
+      redirect_back_or root_path
+		else
+			@user.send_email_validation
+      flash[:notice] = trl('Eine neue Email zur Verifikation der Email-Adresse wurde versendet.')
+			redirect_back_or root_path
+		end
+	end
 
   # ---
 
