@@ -8,10 +8,10 @@ class Student < Role
   # Scopes
 
   scope :no_submission, -> (exercise) {
-    query = where(lecture_id: exercise.subject.lecture.id).
-            joins("LEFT OUTER JOIN submissions ON roles.id = submissions.student_id AND submissions.exercise_id = #{exercise.id}").
-            where("submissions.created_at IS NULL")
-    query = query.where(group_number: exercise.group_number) if exercise.group_number > 0
+    where(lecture_id: exercise.subject.lecture.id).
+      joins("LEFT OUTER JOIN submissions ON roles.id = submissions.student_id AND submissions.exercise_id = #{exercise.id}").
+      where("submissions.created_at IS NULL").
+      where(":number <= 0 OR group_number = :number", number: exercise.group_number)
   }
 
   # Scopes for Datatables
