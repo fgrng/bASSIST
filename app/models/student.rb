@@ -11,7 +11,7 @@ class Student < Role
     where(lecture_id: exercise.subject.lecture.id).
       joins("LEFT OUTER JOIN submissions ON roles.id = submissions.student_id AND submissions.exercise_id = #{exercise.id}").
       where("submissions.created_at IS NULL").
-      where(":number <= 0 OR group_number = :number", number: exercise.group_number)
+      where(":number <= 0 OR roles.group_number = :number", number: exercise.group_number)
   }
 
   # Scopes for Datatables
