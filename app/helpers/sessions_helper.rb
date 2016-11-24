@@ -3,10 +3,16 @@ module SessionsHelper
   # Session - Current User
   
   def sign_in(user)
-    remember_token = User.new_remember_token
-    cookies[:remember_token] = { value: remember_token }
-    user.update_attribute(:remember_token, User.hash(remember_token))
-    self.current_user = user
+    if user.present?
+      # Session Fixation - Countermeasure
+      # reset_session
+
+      session[:current_user_id] = user.id
+      self.current_user = user
+      return true
+    else
+      return false
+    end
   end
 
   def signed_in?
@@ -14,12 +20,13 @@ module SessionsHelper
   end
 
   def sign_out
-    current_user.update_attribute(:remember_token, User.hash(User.new_remember_token))
-    current_user.update_attribute(:active_lecture, active_lecture)
-    cookies.delete(:remember_token)
-    cookies.delete(:active_lecture)
+    current_user.update_attribute(:active_lecture, active_lecture) if signed_in?
+    session.clear if session
+    self.current_user = nil    
     self.deselect_lecture
-    self.current_user = nil
+    
+    # Session Fixation - Countermeasure
+    # reset_session
   end
 
   def current_user=(user)
@@ -27,20 +34,19 @@ module SessionsHelper
   end
 
   def current_user
-    remember_token = User.hash(cookies[:remember_token])
-    @_current_user ||= User.find_by(remember_token: remember_token)
+    @_current_user || User.find_by_id(session[:current_user_id])
   end
 
   # Session - Active Lecture
   
   def select_lecture(lecture)
-    cookies[:active_lecture] = { value: lecture.id }
+    session[:active_lecture] = lecture.id
     current_user.update_attribute(:active_lecture, active_lecture)
     self.active_lecture = lecture
   end
 
   def deselect_lecture
-    cookies.delete(:active_lecture)
+    session.delete(:active_lecture)
     self.active_lecture = nil
   end
 
@@ -52,8 +58,8 @@ module SessionsHelper
     if ret = @_active_lecture 
       return ret.decorate
     end
-    if cookies[:active_lecture]
-      lecture = Lecture.find_by_id(cookies[:active_lecture])
+    if session[:active_lecture]
+      lecture = Lecture.find_by_id(session[:active_lecture])
       unless lecture.nil?
         return lecture.decorate
       else

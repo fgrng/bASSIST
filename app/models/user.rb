@@ -27,16 +27,21 @@ class User < ActiveRecord::Base
 
   # Callbacks
 
-  before_create { generate_token(:remember_token) }
-  before_validation { email.downcase! }
-  before_save { strip_whitespaces }
+  before_validation { strip_email }
+  before_validation { strip_username }
   after_create { send_email_validation }
 
   # Validations
 
-  validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_HD_REGEX }
+  validates :email, presence: true
+  validates :email, uniqueness: true
+  validates :email, format: { with: VALID_EMAIL_HD_REGEX }
+
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  validates :password, length: { minimum: 8 }, allow_nil: true
+  validates :validated, inclusion: { in: [true, false] }
 
   # Associations
 
@@ -51,6 +56,22 @@ class User < ActiveRecord::Base
   # Scopes
 
   scope :verified, -> { where(validated: true) }
+
+  # Class Methods
+
+  def self.signin_find(login)
+    unless login.nil? or login.blank?
+      where("LOWER(email) = :login", login: login.downcase).last
+    else
+      return nil
+    end
+  end
+
+  # Modified Setter/Getter
+
+  def remember_token=(remember_token)
+    write_attribute(:remember_token, Digest::SHA1.hexdigest(remember_token.to_s))
+  end
 
   # Methods
 
@@ -147,16 +168,6 @@ class User < ActiveRecord::Base
     return false
   end
 
-  # Methods: Sessions (Class)
-
-  def User.new_remember_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def User.hash(token)
-    Digest::SHA1.hexdigest(token.to_s)
-  end
-
   # Methods: Mail Validation & Password reset
 
   def verify
@@ -167,15 +178,17 @@ class User < ActiveRecord::Base
   def send_email_validation
     generate_token(:email_validation_token)
     self.email_validation_sent_at = Time.current
-    save!
-    UserMailer.email_validation(self).deliver
+    if self.save
+      UserMailer.email_validation(self).deliver
+    end
   end
 
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.current
-    save!
-    UserMailer.password_reset(self).deliver
+    if self.save
+      UserMailer.password_reset(self).deliver
+    end
   end
 
 	# ---
@@ -184,9 +197,32 @@ class User < ActiveRecord::Base
 
 	# ---
 
+  def strip_email
+    unless self.email.nil?
+      self.email = self.email.to_s
+      self.email.downcase!
+      self.email = self.email.strip
+      self.email.gsub!(/[\p{Z}\t\f]/,"")
+    end
+  end
+  
+  def strip_username
+    unless self.first_name.nil?
+      self.first_name = self.first_name.to_s
+      self.first_name = self.first_name.strip
+      self.first_name.gsub!(/[\p{Z}\t\f]/,"")
+    end
+    unless self.last_name.nil?
+      self.last_name = self.last_name.to_s
+      self.last_name = self.last_name.strip
+      self.last_name.gsub!(/[\p{Z}\t\f]/,"")
+    end
+  end
+
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64
+      return self[column]
     end while User.exists?(column => self[column])
   end
 
