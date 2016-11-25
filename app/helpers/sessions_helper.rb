@@ -1,7 +1,7 @@
 module SessionsHelper
 
   # Session - Current User
-  
+
   def sign_in(user)
     if user.present?
       # Session Fixation - Countermeasure

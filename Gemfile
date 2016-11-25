@@ -4,10 +4,10 @@
 # ===============
 
 # --- Standard Gem Source
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # --- Base
-gem 'rails', '4.0.3'
+gem 'rails', '4.1'
 
 # =================
 # === Configure ===
