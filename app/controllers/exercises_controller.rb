@@ -28,7 +28,7 @@ class ExercisesController < ApplicationController
   end
 
   def new
-    @exercise = type_class.new
+    @exercise = @subject.send(type_scope).new
   end
 
   def edit

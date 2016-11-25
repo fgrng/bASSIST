@@ -7,7 +7,7 @@
 source 'http://rubygems.org'
 
 # --- Base
-gem 'rails', '4.1'
+gem 'rails', '4.2'
 
 # =================
 # === Configure ===
@@ -77,6 +77,7 @@ group :development do
   gem 'awesome_print'       # console highlighting
   gem 'better_errors'       # improve in browser error messages
   gem 'meta_request'        # show log in Chrome dev tools with RailsPanel addon
+  gem 'web-console', '~> 2.0' 
   gem 'pry'
   gem 'pry-doc'
   gem 'method_source'
