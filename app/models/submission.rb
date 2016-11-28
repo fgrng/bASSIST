@@ -1,5 +1,5 @@
 # coding: utf-8
-class Submission < ActiveRecord::Base
+class Submission < ApplicationRecord
   
   # Attributes
   #

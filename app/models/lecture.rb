@@ -1,4 +1,4 @@
-class Lecture < ActiveRecord::Base
+class Lecture < ApplicationRecord
 
   # Attributes
   #

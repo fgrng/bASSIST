@@ -26,5 +26,9 @@ module Bassist
     # Auto-loading lib files
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app')
+
+    # Rails 5.0 Update
+    # 2.3 Halting Callback Chains via throw(:abort)
+    ActiveSupport.halt_callback_chains_on_return_false = false
   end
 end
