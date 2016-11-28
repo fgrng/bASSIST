@@ -27,7 +27,7 @@ class LecturesController < ApplicationController
   end
 
   def index_assistant
-		lectures = Lecture.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    lectures = Lecture.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 5)
     @lectures = LectureDecorator.decorate_collection(lectures)
     render 'lectures/index_assistant'
   end
@@ -106,7 +106,7 @@ class LecturesController < ApplicationController
       redirect_to users_url
     else
       flash[:alert] = trl('Student wurde nicht hinzugefügt.')
-      redirect_to users_url                      
+      redirect_to users_url
     end
   end
 
@@ -175,7 +175,7 @@ class LecturesController < ApplicationController
 
   private
 
-	# ---
+  # ---
 
   # Variables
 
@@ -202,7 +202,7 @@ class LecturesController < ApplicationController
                                     :register_start,
                                     :register_stop,
                                     :closed,
-																		:show_lsa_score,
+                                    :show_lsa_score,
                                     :teacher_key,
                                     :tutor_key,
                                     :is_visible)

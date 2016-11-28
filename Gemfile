@@ -7,7 +7,7 @@
 source 'https://rubygems.org'
 
 # --- Base
-gem 'rails', '4.0.3'
+gem 'rails', '5.0'
 
 # =================
 # === Configure ===
@@ -25,44 +25,45 @@ gem 'sqlite3'
 # =================
 
 # --- JavaScript
-gem 'jquery-rails'
-gem 'jbuilder', '~> 1.2'
+gem 'jquery-rails', '~> 4.2.1'
+gem 'jbuilder'
 gem 'therubyracer', platforms: :ruby
 gem 'execjs'
 gem 'coffee-rails'
-gem 'jquery-datatables-rails', '~> 3.2.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'jquery-datatables-rails'
+gem 'uglifier'
 
 # --- Crypto
-gem "bcrypt-ruby"
-gem "attr_encrypted", "~> 1.3.2"
+gem "bcrypt", '~> 3.1.7'
 
 # --- CSS and Twitter Bootstrap
-gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootstrap_form', :git => 'git://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms'
 gem "bootstrap-switch-rails"
 
 # --- Deployment
-gem 'figaro', '>= 1.0'
+gem 'figaro'
 
-# --- Delayed Jobs
-gem 'delayed_job_active_record'
-gem 'daemons'
+# --- Active Jobs 
+gem 'sidekiq'
+# gem 'delayed_job_active_record'
+# gem 'daemons'
 
 # -- Internationalization
 gem 'rails-i18n'
 
 # --- Other gems
 gem 'slim-rails'
-gem 'draper', '~> 1.3'
+gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'rb-readline'
 gem 'yaml_db'
+gem 'activemodel-serializers-xml'
 
 # http client
-gem 'curb'
+gem 'curb', '~> 0.9.3'
 
 # Unicode algorithms
 #   gem 'unicode_utils'
@@ -70,25 +71,17 @@ gem 'curb'
 # Generate files (pdfs,zip)
 gem 'prawn'
 gem 'prawn_rails'
-gem 'rubyzip', '>= 1.0.0'
+gem 'rubyzip'
 gem 'zip-zip'
 
 group :development do
   gem 'awesome_print'       # console highlighting
   gem 'better_errors'       # improve in browser error messages
   gem 'meta_request'        # show log in Chrome dev tools with RailsPanel addon
+  gem 'web-console', '~> 2.0' 
   gem 'pry'
   gem 'pry-doc'
   gem 'method_source'
   gem 'binding_of_caller'
   gem 'hirb-unicode'
-end
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-group :production do
-  # gem 'rails_12factor'
 end

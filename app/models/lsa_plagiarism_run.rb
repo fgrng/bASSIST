@@ -44,6 +44,14 @@ class LsaPlagiarismRun < LsaRun
     self.set_start_time
     self.save
 
+    # Check LSA ping
+    unless self.lsa_server.ping
+      self.error_message = ERROR_INVALID_LSA_SERVER
+      self.set_stop_time
+      self.save
+      return false
+    end
+
     ex_ids = self.exercises.pluck(:id)
 
     ex_ids.repeated_combination(2).each do |ex_tuple|

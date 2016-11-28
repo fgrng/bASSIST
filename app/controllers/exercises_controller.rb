@@ -12,7 +12,7 @@ class ExercisesController < ApplicationController
   # Permissions
   before_action :require_permission, except: [:index, :show, :create_empty_sub, :create_extra_sub, :create_empty_sub, :count_submissions]
   before_action :require_permission_tutor, only: [:create_empty_sub, :count_submissions]
-  before_action :lecture_closed, except: [:index, :show, :count_submissions, :lsa_sorting_last]
+  before_action :lecture_closed, except: [:index, :show, :count_submissions, :create_empty_sub, :lsa_sorting_last]
   
   # Actions (Resources)
 
@@ -24,11 +24,11 @@ class ExercisesController < ApplicationController
     respond_to do |format|
       format.html { }
       format.json { render :json => @exercise.as_json }
-    end		
+    end
   end
 
   def new
-    @exercise = type_class.new
+    @exercise = @subject.send(type_scope).new
   end
 
   def edit
@@ -77,8 +77,8 @@ class ExercisesController < ApplicationController
     end
 
     @lecture = student.lecture
-    lecture_closed    
-    
+    lecture_closed
+
     # Current user has permission?
     unless current_user.is_tutor?(@lecture) or
           current_user.is_teacher?(@lecture)
@@ -130,7 +130,7 @@ class ExercisesController < ApplicationController
     end
   end
 
-	# Actions (JSON API)
+  # Actions (JSON API)
 
   def count_submissions
     respond_to do |format|
@@ -155,35 +155,35 @@ class ExercisesController < ApplicationController
     end
   end
 
-	def lsa_sorting_last
-		respond_to do |format|
-			format.json{
-				run = LsaSortingRun.where(exercise_id: @exercise.id).last
-				sortings = run.lsa_sortings.ordered.to_a
-				percentile = (sortings.count / 10).to_i
+  def lsa_sorting_last
+    respond_to do |format|
+      format.json{
+        run = LsaSortingRun.where(exercise_id: @exercise.id).last
+        sortings = run.lsa_sortings.ordered.to_a
+        percentile = (sortings.count / 10).to_i
+        
+        first_index = percentile
+        while sortings[first_index].submission.text.blank?
+          first_index += 1
+        end
+        
+        second_index = -(percentile+1)
+        while sortings[second_index].submission.text.blank?
+          second_index -= 1
+        end
+        
+        first_sub = sortings[first_index].submission
+        second_sub = sortings[second_index].submission
+        render json: { :first => first_sub, :second => second_sub, first_score: first_sub.grade, second_score: second_sub.grade }
+      }
+    end
+  end
 
-				first_index = percentile
-				while sortings[first_index].submission.text.blank?
-					first_index += 1
-				end
-
-				second_index = -(percentile+1)
-				while sortings[second_index].submission.text.blank?
-					second_index -= 1
-				end
-				
-				first_sub = sortings[first_index].submission
-				second_sub = sortings[second_index].submission
-				render json: { :first => first_sub, :second => second_sub, first_score: first_sub.grade, second_score: second_sub.grade }
-			}
-		end
-	end
-
-	# ---
+  # ---
 
   private
 
-	# ---
+  # ---
 
   # Single Table Inheritance
 
@@ -227,7 +227,7 @@ class ExercisesController < ApplicationController
     params.require(type.underscore.to_sym).permit(:text,
                                                   :min_points,
                                                   :max_points,
-																									:group_number,
+                                                  :group_number,
                                                   :ideal_solution)
   end
 
@@ -250,7 +250,7 @@ class ExercisesController < ApplicationController
       flash[:alert] = trl("Sie müssen angemeldet sein, um diese Aktion auszuführen.")
       redirect_back_or root_path
     else
-			@lecture ||= Exercise.find(params[:id]).subject.lecture
+      @lecture ||= Exercise.find(params[:id]).subject.lecture
       unless current_user.is_teacher_or_tutor?(@lecture)
         flash[:alert] = trl("Sie haben nicht die nötige Berechtigung, um diese Aktion durchzuführen.")
         redirect_back_or root_path

@@ -1,4 +1,4 @@
-class LsaPlagiarism < ActiveRecord::Base
+class LsaPlagiarism < ApplicationRecord
 
 	# Attributes
 	#

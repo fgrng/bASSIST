@@ -1,4 +1,4 @@
-class Subject < ActiveRecord::Base
+class Subject < ApplicationRecord
 
   # Attributes
   #
@@ -20,7 +20,9 @@ class Subject < ActiveRecord::Base
 	has_many :b_statements
 	has_many :c_statements
 	
-  has_many :reflections
+  # 'transactions' is a new reserved keyword in rails 4.1
+  has_many :contemplations, class_name: "Transaction", foreign_key: 'transaction_id'
+
 	has_many :a_reflections
 	has_many :b_reflections
 	has_many :c_reflections

@@ -121,7 +121,7 @@ class RolesController < ApplicationController
       @role.update_attribute(:validated, false)
     else
       @role.update_attribute(:validated, true)
-      UserMailer.data_verified(@role).deliver
+      UserMailer.data_verified(@role).deliver_later
     end
     flash[:notice] = trl("Validationsstatus geändert.")
     redirect_to lecture_students_path(@lecture)

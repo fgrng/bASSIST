@@ -1,7 +1,7 @@
-class LsaServer < ActiveRecord::Base
+class LsaServer < ApplicationRecord
 
-	# Attributes
-	#
+  # Attributes
+  #
   # t.string   "name"
   # t.string   "json_url"
   # t.string   "rmi_url"
@@ -9,17 +9,17 @@ class LsaServer < ActiveRecord::Base
   # t.integer  "json_port"
   # t.string   "json_path"
 
-	# Contants
-  
+  # Contants
+
   COMMANDS = [
     COMMAND_PING = 'SWping',
     COMMAND_PLAGIARISM = 'SWgetPlagiarism',
     COMMAND_SORTING = 'SWgetSorted',
     COMMAND_SCORING = 'SWgetSingleScores',
-		COMMAND_COSINE = 'SWgetCosine',
-		COMMAND_COSINES = 'SWgetCosines',
+    COMMAND_COSINE = 'SWgetCosine',
+    COMMAND_COSINES = 'SWgetCosines',
   ]
-  
+
   # Associations
 
   has_many :lsa_runs
@@ -76,7 +76,13 @@ class LsaServer < ActiveRecord::Base
     curl = Curl::Easy.new
     curl.url = self.get_uri(COMMAND_PING)
     curl.headers = self.get_headers
-    curl.post(self.get_params.to_json)
+    # Send http request
+    begin
+      curl.post(self.get_params.to_json)
+    rescue
+      return false
+    end
+    # Parse response body
     unless curl.body.nil?
       begin
         return JSON.parse(curl.body)["isConnection"]
@@ -97,9 +103,9 @@ class LsaServer < ActiveRecord::Base
     lsa_run = LsaSortingRun.new
     lsa_run.error_message = "In Progress."
     lsa_run.save
-    
+
     indices = client.getSorted(exercise.ideal_solution,submissions_texts)
-    
+
     for index in 0 ... indices["indices"].size
       sub = Submission.find(submissions_id[index])
       LsaSorting.create(

@@ -1,4 +1,4 @@
-class LsaSorting < ActiveRecord::Base
+class LsaSorting < ApplicationRecord
 
 	# Attributes
 	# 

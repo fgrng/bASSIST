@@ -1,4 +1,4 @@
-class LsaRun < ActiveRecord::Base
+class LsaRun < ApplicationRecord
 
   # Attributes
   #
@@ -50,7 +50,6 @@ class LsaRun < ActiveRecord::Base
   belongs_to :user
   belongs_to :lecture
   belongs_to :lsa_server
-  belongs_to :delayed_job
 
   # Scopes
 
@@ -76,11 +75,11 @@ class LsaRun < ActiveRecord::Base
   # Methods (Delayed Job Wrapper)
 
   def start
-    self.delay.run if self.valid_basic?
+    LsaRunJob.perform_later(self.id) if self.valid_basic?
   end
 
   def start_at(time)
-    self.delay(run_at: time).run if self.valid_basic?
+    LsaRunJob.set(wait_until: time).perform_later(self.id) if self.valid_basic?
   end
 
   def start_standard
@@ -124,13 +123,6 @@ class LsaRun < ActiveRecord::Base
     end
     # Check LSA Server
     if self.lsa_server.nil?
-      self.error_message = ERROR_INVALID_LSA_SERVER
-      self.set_stop_time
-      self.save
-      return false
-    end
-    # Check LSA ping
-    unless self.lsa_server.ping
       self.error_message = ERROR_INVALID_LSA_SERVER
       self.set_stop_time
       self.save

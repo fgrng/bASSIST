@@ -1,4 +1,4 @@
-class LsaScoring < ActiveRecord::Base
+class LsaScoring < ApplicationRecord
 
 	# Attributes
 	#

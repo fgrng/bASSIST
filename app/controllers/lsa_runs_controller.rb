@@ -11,7 +11,7 @@ class LsaRunsController < ApplicationController
   before_action :require_permission, only: [:index, :show]
   before_action :require_permission_new, only: [:new, :create]
   before_action :require_permission_destroy, only: [:destroy]
-  
+
   # Actions (Resources)
 
   def index
@@ -26,24 +26,24 @@ class LsaRunsController < ApplicationController
 
   def new
     respond_to do |format|
-			format.html { 
-				@lsa_run = type_class.new
-				render "new_#{type_class.to_s.underscore}"
-			}
+      format.html { 
+        @lsa_run = type_class.new
+        render "new_#{type_class.to_s.underscore}"
+      }
     end
-	end
+  end
 
   def create
     case type
     when LsaRun::TYPE_SORTING
       @run = LsaSortingRun.new
-			run_param = LsaRun::TYPE_SORTING.underscore
+      run_param = LsaRun::TYPE_SORTING.underscore
     when LsaRun::TYPE_PLAGIARISM
       @run = LsaPlagiarismRun.new
-			run_param = LsaRun::TYPE_PLAGIARISM.underscore
+      run_param = LsaRun::TYPE_PLAGIARISM.underscore
     when LsaRun::TYPE_SCORING
       @run = LsaScoringRun.new
-			run_param = LsaRun::TYPE_SCORING.underscore
+      run_param = LsaRun::TYPE_SCORING.underscore
     end
 
     # Basic LsaRun
@@ -52,18 +52,18 @@ class LsaRunsController < ApplicationController
     @run.error_message = LsaRun::STATUS_PLANNED
 
     schedule_time = Time.new(params[run_param]["schedule_time(1i)"].to_i, 
-														 params[run_param]["schedule_time(2i)"].to_i,
-														 params[run_param]["schedule_time(3i)"].to_i,
-														 params[run_param]["schedule_time(4i)"].to_i,
-														 params[run_param]["schedule_time(5i)"].to_i)
+                             params[run_param]["schedule_time(2i)"].to_i,
+                             params[run_param]["schedule_time(3i)"].to_i,
+                             params[run_param]["schedule_time(4i)"].to_i,
+                             params[run_param]["schedule_time(5i)"].to_i)
     @run.schedule_time = schedule_time
 
     lsa_server = LsaServer.find(params[run_param][:lsa_server_id])
     @run.lsa_server = lsa_server
 
-		lsa_user = User.find(params[run_param]["user_id"])
-		@run.user = lsa_user
-    
+    lsa_user = User.find(params[run_param]["user_id"])
+    @run.user = lsa_user
+
     if @run.save
       # Specific LsaRun
       case type
@@ -101,28 +101,27 @@ class LsaRunsController < ApplicationController
       redirect_to lecture_path(@lecture)
     end
   end
-  
+
   def destroy
     @run = LsaRun.find_by_id(params[:id])
     @run.destroy
     flash[:notice] = trl("LsaRun erfolgreich gelöscht.")
-    redirect_to lsa_runs_url      
-  end
+    redirect_to lsa_runs_url  end
 
   # ---
-  
+
   private
 
-	# ---
+  # ---
 
   # Single Table Inheritance
 
-  def type 
+  def type
     params[:type] || "LsaRun"
   end
 
-  def type_class 
-    type.constantize 
+  def type_class
+    type.constantize
   end
 
   def type_scope
@@ -186,5 +185,3 @@ class LsaRunsController < ApplicationController
   end
 
 end
-
-

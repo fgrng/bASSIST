@@ -102,6 +102,14 @@ class LsaScoringRun < LsaRun
       self.save
       return false
     end
+    # Check LSA ping
+    unless self.lsa_server.ping
+      self.error_message = ERROR_INVALID_LSA_SERVER
+      self.set_stop_time
+      self.save
+      return false
+    end
+
     return true
   end
 

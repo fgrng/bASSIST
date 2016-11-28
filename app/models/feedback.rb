@@ -1,4 +1,4 @@
-class Feedback < ActiveRecord::Base
+class Feedback < ApplicationRecord
 
   # Attributes
   # 
@@ -57,7 +57,7 @@ class Feedback < ActiveRecord::Base
   end
 
   def mail_notification
-    UserMailer.feedback(self).deliver
+    UserMailer.feedback(self).deliver_later
   end
 
   def text_xml_valid

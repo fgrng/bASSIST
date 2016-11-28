@@ -27,6 +27,13 @@ class LsaSortingRun < LsaRun
     self.set_start_time
     self.save
 
+    unless self.lsa_server.ping
+      self.error_message = ERROR_INVALID_LSA_SERVER
+      self.set_stop_time
+      self.save
+      return false
+    end
+
     submissions = self.exercise.submissions.pluck(:id, :text)
     submission_ids = Array.new
     submission_texts = Array.new

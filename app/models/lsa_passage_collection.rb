@@ -1,4 +1,4 @@
-class LsaPassageCollection < ActiveRecord::Base
+class LsaPassageCollection < ApplicationRecord
 
 	# Attributes
 	#

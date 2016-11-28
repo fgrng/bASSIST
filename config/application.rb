@@ -26,5 +26,8 @@ module Bassist
     # Auto-loading lib files
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app')
+
+    # The Active Job adapter
+    config.active_job.queue_adapter = :sidekiq
   end
 end
