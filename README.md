@@ -14,9 +14,9 @@ Das Tool bietet das folgende Setting:
 
 Diese Version von βASSIST ermöglicht es, die Abgaben der Student\*innen mit
 Hilfe einer Textanalyse Software auf Plagiate zu überprüfen und anhand
-einer Musterlösung zu bewerten. Um diese Funktionen nutzen zu können,
-benötigen Sie die entsprechende Textanalyse Software. Diese ist proprietär
-und nicht frei erhältlich.
+einer Musterlösung automatisch zu bewerten. Um diese Funktionen nutzen zu
+können, benötigen Sie die entsprechende Textanalyse Software. Diese ist
+proprietär und nicht frei erhältlich.
 
 ## Installation
 
@@ -25,9 +25,11 @@ Die βASSIST Webapplikation ist in dem Web Application Framework
 Programmiersprache [Ruby](https://www.ruby-lang.org/en/) basiert,
 geschrieben. Um βASSIST verwenden zu können, benötigt man eine Installation
 von Ruby, Rails und den weiteren von βASSIST benötigten Ruby
-Paketen. Außerdem wird eine Datenbanksystem; es werden
+Paketen. Außerdem wird ein Datenbanksystem benötigt; es werden
 [SQLite](https://www.sqlite.org/), [PostgreSQL](http://www.postgresql.org/)
-und [MySQL](https://www.mysql.de/) unterstützt.
+und [MySQL](https://www.mysql.de/) unterstützt. Für die Verwaltung
+asynchroner Aufgaben setzt βASSIST auf das Paket Sidekiq, wofür
+[redis](https://redis.io/) benötigt wird.
 
 ### Ruby Version Manager
 
