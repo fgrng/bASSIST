@@ -52,7 +52,7 @@ class Role < ApplicationRecord
   scope :all_students, -> { where(type: TYPE_STUDENT, validated: false) }
 
   scope :tutors, -> { where(type: TYPE_TUTOR) }
-	
+
   scope :teachers, -> { where(type: TYPE_TEACHER) }
 
 end

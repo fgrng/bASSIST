@@ -4,16 +4,16 @@ class LecturesController < ApplicationController
   # Filters
 
   # Set Variables
-  before_action :set_lecture, except: [:index, :new, :create]
+  before_action :set_lecture, except: [:index, :new, :create, :import_new, :import_conf, :import_create]
 
   # Permissions
-  before_action :require_permission, except: [:create, :destroy, :index, :new, :show]
-  before_action :require_assistant, only: [:create, :destroy]
+  before_action :require_permission, except: [:create, :destroy, :index, :new, :show, :import_new, :import_conf, :import_create]
+  before_action :require_assistant, only: [:create, :destroy, :import_create]
   before_action :lecture_closed, only: [:add, :add_group, :remove_group, :fill_groups, :clear_groups,
                                         :clear_tutorials, :fill_tutorials, :refill_tutorials,
                                         :force_fill_tutorials, :force_refill_tutorials,
                                         :assign_tutorials, :deassign_tutorails, :destroy]
-  
+
   # Actions (Resources)
 
   # Situational Indexing
@@ -71,6 +71,99 @@ class LecturesController < ApplicationController
   def destroy
     @lecture.destroy
     redirect_to lectures_url
+  end
+
+  # Actions (Data Import)
+
+  def import_new
+    @lecture = Lecture.new
+  end
+
+  def import_conf
+    # Create dummy lecture.
+    @lecture = Lecture.new(lecture_params)
+    if @lecture.save
+      @lecture.teachers.build(user: current_user).save
+
+      # lecture created. Prepare CSV file.
+      import_file = params[:lecture][:file]
+      @import_data = CSV.read(import_file.path, headers: true)
+      @csv_headers = @import_data.headers
+
+      # Store processing information in session.
+      session[:import_lecture] = @lecture.id
+      session[:import_file] = import_file.path
+
+      # Prepare for view
+      @lecture = @lecture.decorate
+    else
+      render action: 'import_new'
+    end
+  end
+
+  def import_create
+    @lecture = Lecture.find(session[:import_lecture]).decorate
+    @import_data = CSV.read(session[:import_file], headers: true)
+
+    # Reverse params hash.
+    rev = Hash.new{ |h,k| h[k] = [] }
+    params.each{ |k,v| rev[v] << k }
+
+    # Import CSV Data.
+    column_id = rev["id"].first
+
+    # Create Subjects and Exercises
+    exercises = []
+    Exercise.transaction do
+      (Exercise::TYPE_STATEMENTS + Exercise::TYPE_REFLECTIONS).each do |type|
+        rev[type].each do |column_sub|
+          s = @lecture.subjects.build(
+            name: "DummySubject_#{column_sub}",
+            due_date: Time.current(),
+          )
+          e = s.send(type.underscore.pluralize).build(
+            text: "DummyExercise_#{column_sub}",
+            ideal_solution: "",
+            max_points: 99,
+            group_number: 0
+          )
+          e.save
+          exercises << { column: column_sub, id: e.id }
+        end
+      end
+    end
+
+    User.transaction do
+      @import_data.each do |row|
+        # Create dummy users.
+        user = User.create!(
+          dummy: true,
+          first_name: "DummyUser_#{row[column_id]}",
+          last_name: @lecture.name,
+          password: "DiesIstKeinPassword",
+          password_confirmation: "DiesIstKeinPassword",
+          email: @lecture.term + @lecture.year.year.to_s + "_" + @lecture.name.strip.gsub(/\s+/, "") + "_" + row[column_id].to_s + "@dummy.stud.uni-heidelberg.de"
+        )
+
+        # Enroll dummy users.
+        student = Student.create!(user: user, lecture: @lecture)
+
+        # Create Submissions
+        exercises.each do |ex|
+          Exercise.find(ex[:id]).submissions.build(
+            student: student,
+            text: row[ex[:column]]
+          ).save!
+        end
+      end
+    end
+
+    if @lecture.save
+      flash[:notice] = trl('Daten wurden erfolgreich importiert.')
+      redirect_to @lecture
+    else
+      render action: 'import_new'
+    end
   end
 
   # Actions (Data Export)

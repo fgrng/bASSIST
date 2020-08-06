@@ -19,7 +19,7 @@ Bassist::Application.routes.draw do
     resources :tutorials
     resources :lsa_runs, only: [:index, :destroy]
     resources :lsa_plagiarism_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_PLAGIARISM
-    resources :lsa_sorting_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_SORTING    
+    resources :lsa_sorting_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_SORTING
     resources :lsa_scoring_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_SCORING
     member do
       get 'clear_tutorials'
@@ -38,6 +38,12 @@ Bassist::Application.routes.draw do
       #
       get 'export_subjects'
       get 'export_students'
+    end
+    # Dummy Lecture for CSV Import
+    collection do
+      get 'import_new'
+      post 'import_conf'
+      post 'import_create'
     end
   end
 

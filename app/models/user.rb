@@ -157,7 +157,7 @@ class User < ApplicationRecord
   def is_tutor_or_teacher?(lecture)
     return self.is_teacher_or_tutor?(lecture)
   end
-  
+
   def has_tutor?
     return true if self.tutors.count > 0
     return false
@@ -176,10 +176,14 @@ class User < ApplicationRecord
   end
 
   def send_email_validation
-    generate_token(:email_validation_token)
-    self.email_validation_sent_at = Time.current
-    if self.save
-      UserMailer.email_validation(self).deliver_later
+    if self.dummy
+      self.verify
+    else
+      generate_token(:email_validation_token)
+      self.email_validation_sent_at = Time.current
+      if self.save
+        UserMailer.email_validation(self).deliver_later
+      end
     end
   end
 
@@ -189,6 +193,10 @@ class User < ApplicationRecord
     if self.save
       UserMailer.password_reset(self).deliver_later
     end
+  end
+
+  def is_dummy?
+    self.dummy
   end
 
 	# ---
@@ -205,7 +213,7 @@ class User < ApplicationRecord
       self.email.gsub!(/[\p{Z}\t\f]/,"")
     end
   end
-  
+
   def strip_username
     unless self.first_name.nil?
       self.first_name = self.first_name.to_s

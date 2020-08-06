@@ -1,0 +1,9 @@
+= bootstrap_form_tag(url: "import_create", layout: :horizontal, label_col: "col-md-3", control_col: "col-md-8") do |f|
+  - @csv_headers.each do |header|
+    = f.select header,
+      options_for_select(@lecture.import_options),
+      { label: header, layout: :horizontal },
+      { class: "form-control" }
+  = f.form_group do
+    = f.primary "Daten importieren", data: {confirm: 'Der Datenimport kann einige Minuten dauern. Bitte verlassen Sie die Seite nicht.'}
+

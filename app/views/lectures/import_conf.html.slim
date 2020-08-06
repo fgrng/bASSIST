@@ -1,0 +1,17 @@
+- content_for :page_title do
+  |  Wilkommen! 
+- content_for :page_subtitle do
+  |  Bitte konfigurieren Sie den Datenimport
+- content_for :sub do
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title.text-center
+            | Konfiguration für Datenimport
+        .panel-body
+          | Es wurden die folgenden Spalten in der CSV-Datei gefunden. Bitte ordnen Sie den Spacten die jeweilige Bedeutung zu.
+          hr
+          = render '/lectures/import_conf'
+
+= render template: "layouts/main"

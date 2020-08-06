@@ -1,6 +1,6 @@
 # coding: utf-8
 class Submission < ApplicationRecord
-  
+
   # Attributes
   #
   # t.text     "text"
@@ -23,7 +23,7 @@ class Submission < ApplicationRecord
 
   validates :exercise_id, :presence => true
   validates_presence_of :exercise
-  
+
   validate :validate_submission_per_exercise, :on => :create
 
   def validate_submission_per_exercise

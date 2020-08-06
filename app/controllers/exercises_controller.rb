@@ -8,12 +8,12 @@ class ExercisesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy, :create_empty_sub]
   before_action :set_subject, except: [:create_empty_sub]
   before_action :set_lecture, except: [:create_empty_sub]
-  
+
   # Permissions
   before_action :require_permission, except: [:index, :show, :create_empty_sub, :create_extra_sub, :create_empty_sub, :count_submissions]
   before_action :require_permission_tutor, only: [:create_empty_sub, :count_submissions]
   before_action :lecture_closed, except: [:index, :show, :count_submissions, :create_empty_sub, :lsa_sorting_last]
-  
+
   # Actions (Resources)
 
   def index
@@ -161,17 +161,17 @@ class ExercisesController < ApplicationController
         run = LsaSortingRun.where(exercise_id: @exercise.id).last
         sortings = run.lsa_sortings.ordered.to_a
         percentile = (sortings.count / 10).to_i
-        
+
         first_index = percentile
         while sortings[first_index].submission.text.blank?
           first_index += 1
         end
-        
+
         second_index = -(percentile+1)
         while sortings[second_index].submission.text.blank?
           second_index -= 1
         end
-        
+
         first_sub = sortings[first_index].submission
         second_sub = sortings[second_index].submission
         render json: { :first => first_sub, :second => second_sub, first_score: first_sub.grade, second_score: second_sub.grade }

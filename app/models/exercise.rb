@@ -11,9 +11,9 @@ class Exercise < ApplicationRecord
   # t.datetime "created_at"
   # t.datetime "updated_at"
   # t.integer  "group_number"
-  
+
   # Constants
-  
+
   TYPES = [
     TYPE_STATEMENTS = [
       TYPE_STATEMENT_BASE = 'Statement',
@@ -45,7 +45,7 @@ class Exercise < ApplicationRecord
 
   before_save { sanitize_text(:text) }
   before_save { sanitize_text(:ideal_solution) }
-  
+
   def sanitize_text(column)
     # http://www.regular-expressions.info/unicode.html
 
@@ -81,7 +81,7 @@ class Exercise < ApplicationRecord
   scope :no_submission, -> (student) {
     obligation(student.group_number).select { |e| e.submissions.find_by_student_id(student.id).nil? }
   }
-  
+
   # Delegations
 
   delegate :time_left, :to => :subject

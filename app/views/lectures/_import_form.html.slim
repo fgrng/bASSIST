@@ -1,0 +1,38 @@
+= bootstrap_form_for(@lecture, url: "import_conf", layout: :horizontal, label_col: "col-md-3", control_col: "col-md-8") do |f|
+  = f.text_field :name, placeholder: "Name"
+  hr
+  = f.select :term,
+    options_for_select([[LectureDecorator::WINTER_TERM,"w"],[LectureDecorator::SUMMER_TERM,"s"]],@lecture.term),
+    { label: "Semester", layout: :horizontal },
+    { class: "form-control" }
+  = f.date_select :year,
+    { label: "Jahr", discard_day: true, discard_month: true, layout: :horizontal},
+    { class: "form-control" }
+  hr
+  = f.text_field :teacher, label: "Dozent*in"
+  = f.text_area :description, label: "Beschreibung"
+  hr
+  = f.text_field :statement_name, label: "Bewerteter Aufgabentyp 1"
+  = f.text_field :a_statement_name, label: "Bewerteter Aufgabentyp 2"
+  = f.text_field :b_statement_name, label: "Bewerteter Aufgabentyp 3"
+  = f.text_field :c_statement_name, label: "Bewerteter Aufgabentyp 4"
+  hr
+  = f.text_field :reflection_name, label: "Unbewerteter Aufgabentyp 1"
+  = f.text_field :a_reflection_name, label: "Unbewerteter Aufgabentyp 2"
+  = f.text_field :b_reflection_name, label: "Unbewerteter Aufgabentyp 3"
+  = f.text_field :c_reflection_name, label: "Unbewerteter Aufgabentyp 4"
+  hr
+  = f.datetime_select :register_start, {label: "Registrierung Start", layout: :horizontal}, { class: "form-control" }
+  = f.datetime_select :register_stop, {label: "Registrierung Ende", layout: :horizontal}, { class: "form-control" }
+  = f.text_field :teacher_key, label: "Dozent*innen Schlüssel"
+  = f.text_field :tutor_key, label: "Tutor*innen Schlüssel"
+  = f.form_group do
+    = f.check_box :is_visible, label: "Sichtbar?"
+    = f.check_box :closed, label: "Geschlossen?"
+    = f.check_box :show_lsa_score, label: "LSA Bewertungen anzeigen?"
+  hr
+  = f.file_field :file, label: "CSV Datei"
+  hr
+  = f.form_group do
+    = f.primary "Kurs speichern"
+
