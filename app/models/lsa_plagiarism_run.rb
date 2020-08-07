@@ -43,6 +43,7 @@ class LsaPlagiarismRun < LsaRun
     self.error_message = STATUS_PROGRESS
     self.set_start_time
     self.save
+    logger.info "### LSA: Recorded starting time."
 
     # Check LSA ping
     unless self.lsa_server.ping
@@ -51,16 +52,19 @@ class LsaPlagiarismRun < LsaRun
       self.save
       return false
     end
+    logger.info "### LSA: Server pinged successfully."
 
     ex_ids = self.exercises.pluck(:id)
+    logger.info "### LSA: Collected Exercises."
 
     ex_ids.repeated_combination(2).each do |ex_tuple|
 			# [1,2] => [(1,1), (1,2), (2,2)]
-      success = do_in_child do
-        self.compare_exercise_vs_exercise(ex_tuple[0],ex_tuple[1])
-      end
-      logger.info "### LSA: Forked Process success: " + success.to_s
-      break unless success == true
+      # logger.info "### LSA: Prepare to fork."
+      # success = do_in_child do
+      self.compare_exercise_vs_exercise(ex_tuple[0],ex_tuple[1])
+      # end
+      # logger.info "### LSA: Forked Process success: " + success.to_s
+      # break unless success == true
     end
 
     self.error_message = STATUS_DONE
