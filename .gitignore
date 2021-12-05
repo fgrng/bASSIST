@@ -27,3 +27,4 @@ vendor/
 .env
 .ruby-gemset
 .ruby-version
+/config/master.key
