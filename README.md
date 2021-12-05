@@ -55,8 +55,8 @@ RVM erfolgreich installiert und wir können Ruby mit den folgenden Befehlen
 installieren.
 
 ```bash
-rvm install 2.1
-rvm use 2.1 --default
+rvm install 3.0.3
+rvm use 3.0.3 --default
 ```
 
 ### Rubygems, Gemset, Bundler
@@ -69,7 +69,7 @@ können, ohne, dass dies mit der Version für βASSIST in Konflikt gerät.
 
 ```bash                                                                                                        
 rvm gemset create bassist
-rvm use 2.1@bassist
+rvm use 3.0.3@bassist
 ```
 
 Damit ist die Umgebung vorbereitet und wir können mit der Installation der
@@ -78,8 +78,7 @@ Aufgabe, weshalb wir es als erstes installieren. Alle weiteren Pakete
 werden von Bundler automatisch installiert.
 
 ```bash
-gem install rubygems-bundler
-gem regenerate_binstubs
+gem install bundler
 ```
 
 ### βASSIST
@@ -93,7 +92,13 @@ dass man sich in dem gewünschten Installationsort im Dateisystem befindet.
 
 ```bash
 git clone https://github.com/fgrng/bASSIST.git
-cd bassist
+cd bASSIST
+bundle install
+```
+Für die Aktivierung spezieller Versionen muss der entsprechende Branch ausgewälht werden.
+
+```bash
+git checkout csv_import
 bundle install
 ```
 
@@ -103,126 +108,13 @@ Pakete benötigt werden. Die Konfiguration der Datenbank erfolgt in
 `./config/database.yml`. Beispielkonfigurationen stehen in
 `./config/database.yml.*.example` zur Verfügung.
 
-#### SQLite3
-
-Um SQLite3 zu verwenden, muss SQLite3 auf unserem System installiert
-sein. Dieser Vorgang unterscheidet sich von Betriebsystem zu Betriebsystem,
-weshalb wir ihn hier nicht dokumentieren können.
-
-Wir passen `./Gemfile` wie folgt an
+Je nach verwendeter Datenbank müssen Anpassungen im `./Gemfile` durchgeführt werden.
 
 ```ruby
 gem 'sqlite3'
 # gem 'pg'
 # gem 'mysql2'
 ```
-
-und erstellen die Datenbankkonfiguration `./config/database.yml`.
-
-```yaml
-development:
-adapter: sqlite3
-database: db/development.sqlite3
-pool: 5
-timeout: 5000
-
-test:
-adapter: sqlite3
-database: db/test.sqlite3
-pool: 5
-timeout: 5000
-
-production:
-adapter: sqlite3
-database: db/production.sqlite3
-pool: 5
-timeout: 5000
-```
-
-#### PostgreSQL
-
-Um PostgreSQL zu verwenden, muss SQLite3 auf unserem System installiert
-sein. Dieser Vorgang unterscheidet sich von Betriebsystem zu Betriebsystem,
-weshalb wir ihn hier nicht dokumentieren können.
-
-Wir passen `./Gemfile` wie folgt an
-
-```ruby
-# gem 'sqlite3'
-gem 'pg'
-# gem 'mysql2'
-```
-und erstellen die Datenbankkonfiguration `./config/database.yml`.
-
-```yaml
-development:
-adapter: postgresql
-encoding: unicode
-database: bassist_development
-pool: 5
-username: USERNAME
-password: PASSWORD
-
-test:
-adapter: postgresql
-encoding: unicode
-database: bassist_test
-pool: 5
-username: USERNAME
-password: PASSWORD
-
-production:
-adapter: postgresql
-encoding: unicode
-database: bassist_production
-pool: 5
-username: USERNAME
-password: PASSWORD
-```
-#### MySQL
-
-Um PostgreSQL zu verwenden, muss SQLite3 auf unserem System installiert
-sein. Dieser Vorgang unterscheidet sich von Betriebsystem zu Betriebsystem,
-weshalb wir ihn hier nicht dokumentieren können.
-
-Wir passen `./Gemfile` wie folgt an
-
-```ruby
-# gem 'sqlite3'
-# gem 'pg'
-gem 'mysql2'
-```
-und erstellen die Datenbankkonfiguration `./config/database.yml`.
-
-```yaml
-development:
-adapter: mysql2
-encoding: utf8
-database: bassist_development
-username: USERNAME
-password: PASSWORD
-host: localhost
-socket: /tmp/mysql.sock
-
-test:
-adapter: mysql2
-encoding: utf8
-database: bassist_test
-username: USERNAME
-password: PASSWORD
-host: localhost
-socket: /tmp/mysql.sock
-
-production:
-adapter: mysql2
-encoding: utf8
-database: bassist_production
-username: USERNAME
-password: PASSWORD
-host: localhost
-socket: /tmp/mysql.sock
-```
-
 ### Datenbank erstellen und einrichten
 
 Mit der Erstellung der Datenbank wird gleichzeitig der Administrator und
@@ -257,14 +149,11 @@ User.create(
 ```
 
 Durch die Konfiguration der Datenbank hat sich des Gemfile geändert. Mit
-einem erneuten `bundle install` wird diese Änderung
+einem erneuten `bundle install` oder `bundle update` wird diese Änderung
 übernommen. Anschließend erstellen wir die Datenbanken und Tabellen.
 
 ```bash
-bundle install
-RAILS_ENV=production bundle exec rake db:create
-RAILS_ENV=production bundle exec rake db:schema:load
-RAILS_ENV=production bundle exec rake db:seed
+RAILS_ENV=production bundle exec rake db:setup
 ```
 
 ### Assets kompilieren
@@ -298,12 +187,6 @@ MAILER_AUTH: :plain
 MAILER_USER: username@smtphost.com
 MAILER_PW: super_secure_password
 MAILER_STARTLS: true
-
-development:
-  SECRET_TOKEN: XXXXX
-
-production:
-  SECRET_TOKEN: XXXXX
 ```
 
 - **HOST_URL** ist die URI des Servers, auf dem die Webapplikation gehostet
@@ -319,3 +202,11 @@ production:
 - **SECRET_TOKEN** wird von Rails verwendet, um Cross-Site Request Forgery
   (CSRF) Angriffe zu verhindern. Dieser Wert wird für
   `Application.config.secret_key_base` verwendet.
+
+### Weitre Konfiguration (Secrets, SSL, …)
+
+TODO
+
+```bash
+bin/rails credentials:edit
+```

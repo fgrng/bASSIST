@@ -25,4 +25,6 @@ config/application.yml
 .idea
 .secret
 .env
-
+.ruby-gemset
+.ruby-version
+/config/master.key
