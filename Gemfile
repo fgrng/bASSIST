@@ -7,7 +7,7 @@
 source 'http://rubygems.org'
 
 # --- Base
-gem 'rails', '6.1'
+gem 'rails', '6.1.4.1'
 
 # =================
 # === Configure ===
@@ -60,6 +60,10 @@ gem 'will_paginate-bootstrap'
 gem 'rb-readline'
 gem 'yaml_db'
 gem 'activemodel-serializers-xml'
+
+# GitHub Advisory Database / CVE-2021-22942
+# See: https://github.com/advisories/GHSA-2rqw-v265-jf8c
+gem "actionpack", ">= 6.1.4"
 
 # http client
 gem 'curb'
