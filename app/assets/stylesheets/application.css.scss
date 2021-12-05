@@ -7,9 +7,10 @@
  *= require_tree .
  */
 
-@import "bootstrap";
+@import "bootstrap-sprockets";
 @import "rails_bootstrap_forms";
 @import "bootstrap3-switch";
+@import "bootstrap";
 
 /* GLOBAL STYLE VARIABLES
 -------------------------------------------------- */

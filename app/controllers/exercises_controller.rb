@@ -77,8 +77,8 @@ class ExercisesController < ApplicationController
     end
 
     @lecture = student.lecture
-    lecture_closed    
-    
+    lecture_closed
+
     # Current user has permission?
     unless current_user.is_tutor?(@lecture) or
           current_user.is_teacher?(@lecture)
@@ -130,7 +130,7 @@ class ExercisesController < ApplicationController
     end
   end
 
-	# Actions (JSON API)
+  # Actions (JSON API)
 
   def count_submissions
     respond_to do |format|

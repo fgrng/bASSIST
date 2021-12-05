@@ -7,7 +7,7 @@
 source 'http://rubygems.org'
 
 # --- Base
-gem 'rails', '5.0'
+gem 'rails', '6.1'
 
 # =================
 # === Configure ===
@@ -25,7 +25,7 @@ gem 'sqlite3'
 # =================
 
 # --- JavaScript
-gem 'jquery-rails', '~> 4.2.1'
+gem 'jquery-rails'
 gem 'jbuilder'
 gem 'therubyracer', platforms: :ruby
 gem 'execjs'
@@ -34,12 +34,12 @@ gem 'jquery-datatables-rails'
 gem 'uglifier'
 
 # --- Crypto
-gem "bcrypt", '~> 3.1.7'
+gem "bcrypt"
 
 # --- CSS and Twitter Bootstrap
 gem 'sass-rails'
 gem 'bootstrap-sass'
-gem 'bootstrap_form', :git => 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'bootstrap_form'
 gem "bootstrap-switch-rails"
 
 # --- Deployment
@@ -62,7 +62,7 @@ gem 'yaml_db'
 gem 'activemodel-serializers-xml'
 
 # http client
-gem 'curb', '~> 0.9.3'
+gem 'curb'
 
 # Unicode algorithms
 #   gem 'unicode_utils'
