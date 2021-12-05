@@ -4,10 +4,10 @@
 # ===============
 
 # --- Standard Gem Source
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # --- Base
-gem 'rails', '5.0'
+gem 'rails', '6.1.4.1'
 
 # =================
 # === Configure ===
@@ -25,7 +25,7 @@ gem 'sqlite3'
 # =================
 
 # --- JavaScript
-gem 'jquery-rails', '~> 4.2.1'
+gem 'jquery-rails'
 gem 'jbuilder'
 gem 'therubyracer', platforms: :ruby
 gem 'execjs'
@@ -34,12 +34,12 @@ gem 'jquery-datatables-rails'
 gem 'uglifier'
 
 # --- Crypto
-gem "bcrypt", '~> 3.1.7'
+gem "bcrypt"
 
 # --- CSS and Twitter Bootstrap
 gem 'sass-rails'
 gem 'bootstrap-sass'
-gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms'
+gem 'bootstrap_form'
 gem "bootstrap-switch-rails"
 
 # --- Deployment
@@ -55,15 +55,19 @@ gem 'rails-i18n'
 
 # --- Other gems
 gem 'slim-rails'
-gem 'draper', github: 'audionerd/draper', branch: 'rails5'
+gem 'draper'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'rb-readline'
 gem 'yaml_db'
 gem 'activemodel-serializers-xml'
 
+# GitHub Advisory Database / CVE-2021-22942
+# See: https://github.com/advisories/GHSA-2rqw-v265-jf8c
+gem "actionpack", ">= 6.1.4"
+
 # http client
-gem 'curb', '~> 0.9.3'
+gem 'curb'
 
 # Unicode algorithms
 #   gem 'unicode_utils'
@@ -78,7 +82,7 @@ group :development do
   gem 'awesome_print'       # console highlighting
   gem 'better_errors'       # improve in browser error messages
   gem 'meta_request'        # show log in Chrome dev tools with RailsPanel addon
-  gem 'web-console', '~> 2.0' 
+  gem 'web-console'
   gem 'pry'
   gem 'pry-doc'
   gem 'method_source'

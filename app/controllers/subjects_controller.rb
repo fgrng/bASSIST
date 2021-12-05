@@ -64,7 +64,7 @@ class SubjectsController < ApplicationController
 
   private
 
-	# ---
+  # ---
 
   # Strong Parameters
 

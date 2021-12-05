@@ -18,7 +18,7 @@ class RolesController < ApplicationController
 
   # Actions (Resources)
 
-  # Situational Indexing  
+  # Situational Indexing
   def index
     respond_to do |format|
       format.html {
@@ -153,16 +153,16 @@ class RolesController < ApplicationController
 
   private
 
-	# ---
+  # ---
 
   # Single Table Inheritance
 
-  def type 
-    params[:type] || "Role" 
+  def type
+    params[:type] || "Role"
   end
 
-  def type_class 
-    type.constantize 
+  def type_class
+    type.constantize
   end
 
   def type_scope
@@ -170,7 +170,7 @@ class RolesController < ApplicationController
   end
 
   # Variables
-  
+
   def set_type
     @type = type
   end
@@ -240,13 +240,13 @@ class RolesController < ApplicationController
       case type
       when Role::TYPE_STUDENT
         unless current_user == @role.user or
-							current_user.is_teacher_or_tutor?(@lecture)
+              current_user.is_teacher_or_tutor?(@lecture)
           flash[:alert] = trl("Sie haben nicht die nötige Berechtigung, um diese Aktion auszuführen.")
           redirect_back_or root_path
         end
       when Role::TYPE_TUTOR
         unless current_user == @role.user or
-							current_user.is_teacher?(@lecture)
+              current_user.is_teacher?(@lecture)
           flash[:alert] = trl("Sie haben nicht die nötige Berechtigung, um diese Aktion auszuführen.")
           redirect_back_or root_path
         end

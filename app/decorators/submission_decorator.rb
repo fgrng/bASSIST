@@ -38,7 +38,7 @@ class SubmissionDecorator < ApplicationDecorator
       object.student.decorate.last_name
     end
   end
-  
+
   def student_list_name
     handle_external do
       object.student.decorate.list_name
@@ -69,19 +69,19 @@ class SubmissionDecorator < ApplicationDecorator
     end
   end
 
-	def lsa_position
-		scoring = LsaSorting.where(submission: object).last
-		return scoring.position unless scoring.nil?
-		return nil
-	end
+  def lsa_position
+    scoring = LsaSorting.where(submission: object).last
+    return scoring.position unless scoring.nil?
+    return nil
+  end
 
-	def lsa_grade
-		scoring = LsaScoring.where(submission: object).last
-		return scoring.grade unless scoring.nil?
-		return nil
-	end
+  def lsa_grade
+    scoring = LsaScoring.where(submission: object).last
+    return scoring.grade unless scoring.nil?
+    return nil
+  end
 
-	# DataTables
+  # DataTables
 
   def dt_student_name
     handle_external do
@@ -134,13 +134,13 @@ class SubmissionDecorator < ApplicationDecorator
     end
   end
 
-	def dt_lsa_grade
+  def dt_lsa_grade
     if Exercise::TYPE_STATEMENTS.include?(object.exercise.type)
-			scoring = LsaScoring.where(submission: object).last
-			unless scoring.nil?
-				return "#{scoring.grade} / #{object.exercise.max_points}"
-			end
-		end
+      scoring = LsaScoring.where(submission: object).last
+      unless scoring.nil?
+        return "#{scoring.grade} / #{object.exercise.max_points}"
+      end
+    end
     return ""
   end
 
@@ -151,7 +151,7 @@ class SubmissionDecorator < ApplicationDecorator
   def dt_comment
     self.comment
   end
-  
+
   def  dt_buttons
     unless object.feedback.nil?
       dt_btn_feedback
@@ -191,7 +191,7 @@ class SubmissionDecorator < ApplicationDecorator
     end
     return "success" if object.external
   end
-  
+
   private
 
   def handle_no_feedback
@@ -201,13 +201,13 @@ class SubmissionDecorator < ApplicationDecorator
       return "kein Feedback"
     end
   end
-  
+
   def handle_external
     if object.external
       return "Zusatzabgabe"
     elsif object.student.nil?
-			return "kein Student"
-		else
+      return "kein Student"
+    else
       yield
     end
   end

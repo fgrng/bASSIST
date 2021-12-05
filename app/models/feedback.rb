@@ -1,7 +1,7 @@
 class Feedback < ApplicationRecord
 
   # Attributes
-  # 
+  #
   # t.text     "text"
   # t.boolean  "passed"
   # t.float    "grade"
@@ -22,7 +22,7 @@ class Feedback < ApplicationRecord
   # Callbacks
 
   before_save { sanitize_text(:text) }
-  
+
   def sanitize_text(column)
     # http://www.regular-expressions.info/unicode.html
 

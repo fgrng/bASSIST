@@ -1,11 +1,12 @@
 - content_for :page_title do
-  |  Kurse 
+  |  Kurse
 - content_for :sub do
   .row
     .col-md-9
       - @lectures.each do |lecture|
         = render "lectures/index/lectures_block", :lecture => lecture
       = will_paginate @lectures, renderer: BootstrapPagination::Rails
+
     .col-md-3
       .panel.panel-default
         .panel-heading

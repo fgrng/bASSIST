@@ -21,6 +21,7 @@ Bassist::Application.routes.draw do
     resources :lsa_plagiarism_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_PLAGIARISM
     resources :lsa_sorting_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_SORTING
     resources :lsa_scoring_runs, :controller => :lsa_runs, :type => LsaRun::TYPE_SCORING
+
     member do
       get 'clear_tutorials'
       get 'fill_tutorials'
@@ -39,6 +40,7 @@ Bassist::Application.routes.draw do
       get 'export_subjects'
       get 'export_students'
     end
+
     # Dummy Lecture for CSV Import
     collection do
       get 'import_new'
@@ -59,9 +61,9 @@ Bassist::Application.routes.draw do
     resources :lectures, only: [] do
       get 'add', :on => :member
     end
-		member do
-			get 'send_email_validation'
-		end
+    member do
+      get 'send_email_validation'
+    end
   end
 
   resources :tutorials, only: [] do
@@ -92,23 +94,23 @@ Bassist::Application.routes.draw do
     end
     get 'count_submissions', :on => :member
     get 'create_extra_sub', :on => :member
-		get 'lsa_sorting_last', :on => :member
+    get 'lsa_sorting_last', :on => :member
   end
 
   resources :lsa_plagiarism_runs, only: [], shallow: true do
-    resources :lsa_plagiarisms, only: [:index, :show] 
+    resources :lsa_plagiarisms, only: [:index, :show]
   end
 
   resources :lsa_sorting_runs, only: [], shallow: true do
-    resources :lsa_sortings, only: [:index] 
+    resources :lsa_sortings, only: [:index]
   end
 
   resources :lsa_scoring_runs, only: [], shallow: true do
-    resources :lsa_scorings, only: [:index] 
+    resources :lsa_scorings, only: [:index]
   end
 
   resources :lsa_plagiarisms, only: [:index, :show, :update]
-	
+
   resources :submissions, only: [], shallow: true do
     resources :feedbacks
   end

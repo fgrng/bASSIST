@@ -1,4 +1,10 @@
+# Rails 6.0 Update
+# See: https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#single-table-inheritance
+require "sti_preload"
+
 class Role < ApplicationRecord
+
+  include StiPreload # Activate preload in the root class.
 
   # Attributes
   #
@@ -36,17 +42,17 @@ class Role < ApplicationRecord
   validates_presence_of :user
 
   validates :lecture_id, uniqueness: { scope: :user,
-    message: "Nur eine Rolle pro Kurs" }
+                                       message: "Nur eine Rolle pro Kurs" }
 
   # Scopes
 
-	scope :recent, -> {
-		joins(:lecture).
-			where(lectures: { is_visible: true } ).
-      where(lectures: {year: 1.year.ago..Date.today} )
-	}
+  scope :recent, -> {
+    joins(:lecture).
+      where(lectures: { is_visible: true }).
+      where(lectures: { year: 1.year.ago..Date.today })
+  }
 
-	scope :students, -> { where(type: TYPE_STUDENT) }
+  scope :students, -> { where(type: TYPE_STUDENT) }
   scope :valid_students, -> { where(type: TYPE_STUDENT, validated: true) }
   scope :invalid_students, -> { where(type: TYPE_STUDENT, validated: false) }
   scope :all_students, -> { where(type: TYPE_STUDENT, validated: false) }

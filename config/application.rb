@@ -29,5 +29,18 @@ module Bassist
 
     # The Active Job adapter
     config.active_job.queue_adapter = :sidekiq
+
+    # Rails 5.0 Update
+    # 2.3 Halting Callback Chains via throw(:abort)
+    # Rails 5.2 Update
+    # See: https://stackoverflow.com/questions/49744200/nomethoderror-undefined-method-halt-callback-chains-on-return-false-for-acti
+    # ActiveSupport.halt_callback_chains_on_return_false = false
+
+    # Rails 6.0 Update
+    # enable 'zeitwerk' autoloading
+    config.load_defaults 6.0
+    config.eager_load_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('app')
+
   end
 end

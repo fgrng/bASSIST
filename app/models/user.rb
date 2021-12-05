@@ -199,11 +199,11 @@ class User < ApplicationRecord
     self.dummy
   end
 
-	# ---
+  # ---
 
-	private
+  private
 
-	# ---
+  # ---
 
   def strip_email
     unless self.email.nil?

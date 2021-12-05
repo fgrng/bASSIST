@@ -6,7 +6,7 @@ class CreateLectures < ActiveRecord::Migration
 			t.string   :term
 			t.text     :description
 			t.string   :teacher
-			
+
 			t.integer  :max_group, default: 0
 
 			t.datetime :register_start
@@ -18,6 +18,7 @@ class CreateLectures < ActiveRecord::Migration
 			t.boolean  :is_visible, default: false
 			t.boolean  :closed, default: false
 			t.boolean  :show_lsa_score, default: false
+
 			# Exercise Names
 			t.string   :statement_name, default: "Statement"
 			t.string   :a_statement_name, default: "Statement A"

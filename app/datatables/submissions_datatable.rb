@@ -16,43 +16,42 @@ class SubmissionsDatatable
     }
   end
 
-	# ---
-	
-	private
+  # ---
+  private
 
-	# ---
+  # ---
 
   def data
     decorators = SubmissionDecorator.decorate_collection(submissions)
-		if @exercise.subject.lecture.show_lsa_score
-			decorators.map do |submission|
-				[
-					ERB::Util.h(submission.dt_student_name),
-					ERB::Util.h(submission.dt_tutorial_name),
-					ERB::Util.h(submission.dt_group_name),
-					ERB::Util.h(submission.dt_passed),
-					ERB::Util.h(submission.dt_grade),
-					ERB::Util.h(submission.dt_lsa_grade),
-					ERB::Util.h(submission.dt_last_change),
-					ERB::Util.h(submission.dt_buttons),
-					ERB::Util.h(submission.dt_tutor_tr_class)
-				]
-			end
-		else
-			decorators.map do |submission|
-				[
-					ERB::Util.h(submission.dt_student_name),
-					ERB::Util.h(submission.dt_tutorial_name),
-					ERB::Util.h(submission.dt_group_name),
-					ERB::Util.h(submission.dt_passed),
-					ERB::Util.h(submission.dt_grade),
-					ERB::Util.h(submission.dt_last_change),
-					ERB::Util.h(submission.dt_buttons),
-					ERB::Util.h(submission.dt_tutor_tr_class)
-				]
-			end
-		end
-	end
+    if @exercise.subject.lecture.show_lsa_score
+      decorators.map do |submission|
+        [
+          ERB::Util.h(submission.dt_student_name),
+          ERB::Util.h(submission.dt_tutorial_name),
+          ERB::Util.h(submission.dt_group_name),
+          ERB::Util.h(submission.dt_passed),
+          ERB::Util.h(submission.dt_grade),
+          ERB::Util.h(submission.dt_lsa_grade),
+          ERB::Util.h(submission.dt_last_change),
+          ERB::Util.h(submission.dt_buttons),
+          ERB::Util.h(submission.dt_tutor_tr_class)
+        ]
+      end
+    else
+      decorators.map do |submission|
+        [
+          ERB::Util.h(submission.dt_student_name),
+          ERB::Util.h(submission.dt_tutorial_name),
+          ERB::Util.h(submission.dt_group_name),
+          ERB::Util.h(submission.dt_passed),
+          ERB::Util.h(submission.dt_grade),
+          ERB::Util.h(submission.dt_last_change),
+          ERB::Util.h(submission.dt_buttons),
+          ERB::Util.h(submission.dt_tutor_tr_class)
+        ]
+      end
+    end
+  end
 
   def recordsTotal
     total = Submission.where(external: false).where("submissions.exercise_id = ?", @exercise.id).datatables
@@ -63,7 +62,7 @@ class SubmissionsDatatable
   def submissions
     submissions ||= fetch_submissions
   end
-  
+
   def fetch_submissions
     submissions = Submission.where(external: false).where("submissions.exercise_id = ?", @exercise.id).datatables
     submissions = submissions.where("dt_tutorials_id = ?", @tutorial.id ) unless @tutorial.nil?
@@ -86,11 +85,11 @@ class SubmissionsDatatable
   end
 
   def sort_column
-		if @exercise.subject.lecture.show_lsa_score
-			columns = %w[dt_student_users_last_name dt_tutor_users_last_name dt_students_group_number dt_feedbacks_passed dt_feedbacks_grade dt_lsa_scorings_grade submissions.updated_at dt_feedbacks_is_visible]
-		else
-			columns = %w[dt_student_users_last_name dt_tutor_users_last_name dt_students_group_number dt_feedbacks_passed dt_feedbacks_grade submissions.updated_at dt_feedbacks_is_visible]
-		end
+    if @exercise.subject.lecture.show_lsa_score
+      columns = %w[dt_student_users_last_name dt_tutor_users_last_name dt_students_group_number dt_feedbacks_passed dt_feedbacks_grade dt_lsa_scorings_grade submissions.updated_at dt_feedbacks_is_visible]
+    else
+      columns = %w[dt_student_users_last_name dt_tutor_users_last_name dt_students_group_number dt_feedbacks_passed dt_feedbacks_grade submissions.updated_at dt_feedbacks_is_visible]
+    end
     columns[params[:order]["0"][:column].to_i]
   end
 
