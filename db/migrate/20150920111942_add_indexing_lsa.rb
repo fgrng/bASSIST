@@ -1,4 +1,4 @@
-class AddIndexingLsa < ActiveRecord::Migration
+class AddIndexingLsa < ActiveRecord::Migration[4.2]
   def change
     # Plagiarisms
 		add_index :lsa_plagiarisms, [:lsa_run_id, :lsa_run_type]

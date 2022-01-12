@@ -1,4 +1,4 @@
-class CreateLsaFeatures < ActiveRecord::Migration
+class CreateLsaFeatures < ActiveRecord::Migration[4.2]
   def change
 		create_table :lsa_passage_collections do |t|
 			t.integer  :submission_id
