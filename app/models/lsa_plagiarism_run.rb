@@ -2,15 +2,15 @@
 class LsaPlagiarismRun < LsaRun
 
 	# Attributes
-	# 
+	#
   # t.string   "type"
   # t.string   "error_message"
   # t.datetime "schedule_time"
   # t.datetime "start_time"
   # t.datetime "stop_time"
-	
+
   # Associations
-  
+
   has_many :lsa_plagiarisms, as: :lsa_run, dependent: :destroy
   has_and_belongs_to_many :exercises, foreign_key: "lsa_run_id"
 
@@ -27,7 +27,7 @@ class LsaPlagiarismRun < LsaRun
       exit!(0) # skips exit handlers.
     end
     logger.info "### LSA: Forking process. Done."
-    
+
     write.close
     logger.info "### LSA: Waiting for forked process."
     logger.info "### LSA: child pid: " + pid.to_s
@@ -193,7 +193,7 @@ class LsaPlagiarismRun < LsaRun
 			end
 
 			passages_a.each do |pass_a|
-				params["text"] = pass_a[1] 
+				params["text"] = pass_a[1]
 				params["worksheets"] = passages_b.collect { |x| x[1] } # Array of texts
 				params["threshold"] = 0.3 # uneducated guess
 				begin
@@ -207,11 +207,12 @@ class LsaPlagiarismRun < LsaRun
 				next if result["indicesValues"].empty?
 
 				max = result["indicesValues"].max_by { |x| x["value"] }
+        # Quickly find and update mirror passage (no validations).
 				LsaPassage.find(pass_a[0]).update_attribute(:mirror_id, passages_b[max["index"]][0])
 			end unless passages_b.empty?
 
 			passages_b.each do |pass_b|
-				params["text"] = pass_b[1] 
+				params["text"] = pass_b[1]
 				params["worksheets"] = passages_a.collect { |x| x[1] } # Array of texts
 				params["threshold"] = 0.3 # uneducated guess
 				begin
@@ -223,8 +224,9 @@ class LsaPlagiarismRun < LsaRun
 				end
 				result = JSON.parse(curl.body)
 				next if result["indicesValues"].empty?
-				
+
 				max = result["indicesValues"].max_by { |x| x["value"] }
+        # Quickly find and update mirror passage (no validation).
 				LsaPassage.find(pass_b[0]).update_attribute(:mirror_id, passages_a[max["index"]][0])
 			end unless passages_a.empty?
 		end

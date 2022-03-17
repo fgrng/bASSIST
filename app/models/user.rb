@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # Constants
 
   VALID_EMAIL_REGEX = Figaro.env.valid_email_regex
-  VALID_EMAIL_HD_REGEX = /\A[\w+\-._]+@[a-z\d\-.]+\.uni\-heidelberg\.de/i
+  VALID_EMAIL_HD_REGEX = /\A[\w+\-\._]+@[a-z\d\-\.]+\.uni\-heidelberg\.de/i
 
   # Callbacks
 
@@ -171,6 +171,9 @@ class User < ApplicationRecord
   # Methods: Mail Validation & Password reset
 
   def verify
+    # Clear validation token and set validation status to true.
+    # (simple operation, skip validations with update_attribute).
+    # Return true if successful.
     return (self.update_attribute(:email_validation_token, nil) and
             self.update_attribute(:validated, true))
   end

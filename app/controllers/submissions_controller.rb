@@ -19,7 +19,7 @@ class SubmissionsController < ApplicationController
   before_action :require_permission_destroy, only: [:destroy]
   before_action :submission_allowed?, only: [:new, :create, :edit, :update]
   before_action :lecture_closed, only: [:new, :create, :edit, :update, :destroy]
-  
+
   # Actions (Resources)
 
   # Situational Indexing
@@ -115,7 +115,7 @@ class SubmissionsController < ApplicationController
       redirect_to @lecture
     end
   end
-  
+
   def show
   end
 
@@ -135,6 +135,7 @@ class SubmissionsController < ApplicationController
         flash[:notice] = trl("Ihre Eingabe wurde gespeichert.")
         redirect_to edit_submission_path(@submission)
       elsif params[:submit]
+        # Quickly update visibility, validations already run at @submission.save above.
         @submission.update_attribute(:is_visible, true)
         flash[:notice] = trl("Ihre Eingabe wurde eingereicht. Eine Bearbeitung ist nicht mehr möglich.")
         redirect_to lecture_subjects_path(@lecture)
@@ -154,6 +155,7 @@ class SubmissionsController < ApplicationController
         flash[:notice] = trl("Ihre Eingabe wurde gespeichert.")
         redirect_to edit_submission_path(@submission)
       elsif params[:submit]
+        # Quickly update visibility, validations already run at @submission.update(…) above.
         @submission.update_attribute(:is_visible, true)
         flash[:notice] = trl("Ihre Eingabe wurde eingereicht. Eine Bearbeitung ist nicht mehr möglich.")
         redirect_to lecture_subjects_path(@lecture)

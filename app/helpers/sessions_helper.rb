@@ -20,11 +20,12 @@ module SessionsHelper
   end
 
   def sign_out
+    # Quickly save active lecture to database (skip validations with update_attribute).
     current_user.update_attribute(:active_lecture, active_lecture) if signed_in?
     session.clear if session
-    self.current_user = nil    
+    self.current_user = nil
     self.deselect_lecture
-    
+
     # Session Fixation - Countermeasure
     # reset_session
   end
@@ -38,9 +39,10 @@ module SessionsHelper
   end
 
   # Session - Active Lecture
-  
+
   def select_lecture(lecture)
     session[:active_lecture] = lecture.id
+    # Quickly save active lecture to database (skip validations with update_attribute).
     current_user.update_attribute(:active_lecture, active_lecture)
     self.active_lecture = lecture
   end
