@@ -92,7 +92,7 @@ GEM
     concurrent-ruby (1.1.9)
     connection_pool (2.2.5)
     crass (1.0.6)
-    daemons (1.4.1)
+    curb (1.0.0)
     digest (3.1.0)
     draper (4.0.2)
       actionpack (>= 5.0)
@@ -102,7 +102,6 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     erubi (1.10.0)
-    eventmachine (1.2.7)
     execjs (2.8.1)
     ffi (1.15.5)
     figaro (1.2.0)
@@ -217,10 +216,6 @@ GEM
     sqlite3 (1.4.2)
     strscan (3.0.1)
     temple (0.8.2)
-    thin (1.8.1)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.2.0)
@@ -252,6 +247,7 @@ DEPENDENCIES
   bootstrap-switch-rails
   bootstrap_form
   coffee-rails
+  curb
   draper
   figaro
   jquery-datatables-rails
@@ -264,7 +260,6 @@ DEPENDENCIES
   slim-rails
   sprockets-rails
   sqlite3
-  thin
   uglifier
   web-console
   will_paginate

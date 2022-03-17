@@ -21,7 +21,7 @@ gem 'sqlite3'
 
 # --- Webserver
 # gem 'fcgi'
-gem 'thin'
+# gem 'thin'
 
 # =================
 
@@ -74,7 +74,7 @@ gem "activestorage", ">= 6.1.4.7"
 gem "nokogiri", ">= 1.13.2"
 
 # http client
-### gem 'curb'
+gem 'curb'
 
 # Unicode algorithms
 #   gem 'unicode_utils'
