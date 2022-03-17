@@ -21,7 +21,7 @@ gem 'sqlite3'
 
 # --- Webserver
 # gem 'fcgi'
-gem 'thin'
+# gem 'thin'
 
 # =================
 
