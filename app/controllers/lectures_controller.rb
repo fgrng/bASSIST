@@ -86,13 +86,23 @@ class LecturesController < ApplicationController
       @lecture.teachers.build(user: current_user).save
 
       # lecture created. Prepare CSV file.
-      import_file = params[:lecture][:file]
+      import_file = params[:lecture][:file].tempfile
       @import_data = CSV.read(import_file.path, headers: true)
       @csv_headers = @import_data.headers
 
       # Store processing information in session.
       session[:import_lecture] = @lecture.id
-      session[:import_file] = import_file.path
+
+      # Github Issue 6:
+      #   Temporary file is deleted between requests.
+      #   Preventing garbage collection from deleting file via [1] does not seem to work.
+      #     See: https://stackoverflow.com/questions/21285419/is-there-any-way-to-make-a-ruby-temporary-file-permanent
+      #   So we create a copy of the file instead.
+      #     See: https://stackoverflow.com/questions/4129549/stop-ruby-on-rails-from-deleting-rack-multipart-files-created-by-an-upload
+      FileUtils.copy_entry(import_file.path, import_file.path + "_copy")
+
+      # Store file path in session.
+      session[:import_file] = import_file.path + "_copy"
 
       # Prepare for view
       @lecture = @lecture.decorate
@@ -103,7 +113,14 @@ class LecturesController < ApplicationController
 
   def import_create
     @lecture = Lecture.find(session[:import_lecture]).decorate
+
+    # session[:import_file] contains path string to CSV file.
     @import_data = CSV.read(session[:import_file], headers: true)
+
+    # Github Issue 6:
+    #   import_file is no tempfile / not garbage collected.
+    #   Make sure to unlink file after creating CSV object.
+    File.delete(session[:import_file]) if File.exists?(session[:import_file])
 
     # Reverse params hash.
     rev = Hash.new{ |h,k| h[k] = [] }

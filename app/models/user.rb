@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # Constants
 
   VALID_EMAIL_REGEX = Figaro.env.valid_email_regex
-  VALID_EMAIL_HD_REGEX = /\A[\w+\-._]+@[a-z\d\-.]+\.uni\-heidelberg\.de/i
+  VALID_EMAIL_HD_REGEX = /\A[\w+\-\._]+@[a-z\d\-\.]+\.uni\-heidelberg\.de\z/i
 
   # Callbacks
 
