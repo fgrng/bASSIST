@@ -171,12 +171,16 @@ class User < ApplicationRecord
   # Methods: Mail Validation & Password reset
 
   def verify
+    # Clear validation token and set validation status to true.
+    # (simple operation, skip validations with update_attribute).
+    # Return true if successful.
     return (self.update_attribute(:email_validation_token, nil) and
             self.update_attribute(:validated, true))
   end
 
   def send_email_validation
     if self.dummy
+      # Skip validation process via email and automatically verify user.
       self.verify
     else
       generate_token(:email_validation_token)
