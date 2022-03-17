@@ -118,8 +118,10 @@ class RolesController < ApplicationController
 
   def toggle_validation
     if @role.validated
+      # Quickly toggle (skip validations with update_attribute).
       @role.update_attribute(:validated, false)
     else
+      # Quickly toggle (skip validations with update_attribute).
       @role.update_attribute(:validated, true)
       UserMailer.data_verified(@role).deliver
     end

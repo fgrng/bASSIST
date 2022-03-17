@@ -15,7 +15,7 @@ class FeedbacksController < ApplicationController
   before_action :require_permission_create, only: [:new, :create]
   before_action :require_permission_edit, only: [:edit, :update, :destroy]
   before_action :lecture_closed, except: [:show]
-  
+
   # Actions (Resources)
 
   def show
@@ -38,6 +38,7 @@ class FeedbacksController < ApplicationController
         flash[:notice] = trl("Ihr Feedback wurde gespeichert.")
         redirect_to exercise_submissions_path(@exercise)
       elsif params[:publish]
+        # Quickly update visibility, validations already run at @feedback.save above.
         @feedback.update_attribute(:is_visible, true)
         flash[:notice] = trl("Ihr Feedback wurde gespeichert und veröffentlicht.")
         redirect_to exercise_submissions_path(@exercise)
@@ -59,6 +60,7 @@ class FeedbacksController < ApplicationController
         flash[:notice] = trl("Ihr Feedback wurde gespeichert.")
         redirect_to exercise_submissions_path(@exercise)
       elsif params[:publish]
+        # Quickly update visibility, validations already run at @feedback.update(…) above.
         @feedback.update_attribute(:is_visible, true)
         flash[:notice] = trl("Ihr Feedback wurde gespeichert und veröffentlicht.")
         redirect_to exercise_submissions_path(@exercise)
