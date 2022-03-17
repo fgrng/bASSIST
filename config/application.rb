@@ -38,7 +38,11 @@ module Bassist
 
     # Rails 6.0 Update
     # enable 'zeitwerk' autoloading
-    config.load_defaults 6.0
+    # config.load_defaults 6.0
+
+    # Rails 7.0 Update
+    # In Rails 7 there is only 'zeitwerk'.
+    config.load_defaults 7.0
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('app')
 
