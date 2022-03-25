@@ -1,10 +1,12 @@
 # Rails 6.0 Update
 # See: https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#single-table-inheritance
-require "sti_preload"
+# require "sti_preload"
 
 class Role < ApplicationRecord
 
-  include StiPreload # Activate preload in the root class.
+  # Activate eager loading for single table inheritance.
+  # Only required when lazy loading enabled. Production environment uses eager loading.
+  # include StiPreload 
 
   # Attributes
   #
